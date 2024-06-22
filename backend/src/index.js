@@ -1,15 +1,14 @@
 import express from 'express';
 import ip from 'ip';
-import dotenv from 'dotenv';
+import loadEnvFile from "../env/config.js";
 import cors from 'cors';
 import Response from './domain/response.js';
 import logger from './log/logger.js'
 import HttpStatus from "./utils/HttpStatus.js";
 import estateRoutes from "./route/estate.route.js";
-import estateRoute from "./route/estate.route.js";
 import userRoute from "./route/user.route.js";
 
-dotenv.config();
+loadEnvFile('.env.config')
 const PORT = process.env.SERVER_PORT || 3000;
 const app = express();
 app.use(cors());

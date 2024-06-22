@@ -1,14 +1,22 @@
-import database from '../../config/mysql.config.js';
-import Response from '../../domain/response.js';
-import logger from '../../log/logger.js';
-import HttpStatus from '../../utils/HttpStatus.js';
-import QUERY from '../../query/user/register.query.js';
+import database from '../../../config/mysql.config.js';
+import Response from '../../../domain/response.js';
+import logger from '../../../log/logger.js';
+import HttpStatus from '../../../utils/HttpStatus.js';
+import QUERY from '../../../query/user/register.query.js';
 import bcrypt from 'bcrypt'
+import loadEnvFile from "../../../../env/config.js";
 
 export const registerUser = async (req, res) => {
+    loadEnvFile('.env.security');
 
     const hashLength = 10;
-    const avatar = req.file ? `/data/user-avatar/${req.file.filename}` : null;
+    const avatar = req.file ? `../../../client/src/data/user-avatar/${req.file.filename}` : null;
+    const userRoleId = process.env.ROLE_USER_ID;
+
+
+    if (!req.file) {
+        return res.send('You must select a file to upload')
+    }
 
 
     const { username, email, password } = req.body;
@@ -22,6 +30,7 @@ export const registerUser = async (req, res) => {
             logger.info('No file uploaded');
         }
 
+
         const hashedPassword = await bcrypt.hash(password, hashLength);
 
         const connection = await database.getConnection();
@@ -32,7 +41,9 @@ export const registerUser = async (req, res) => {
 
         if(avatar_url) {
             await connection.query(QUERY.ADD_USER_AVATAR, [userId, avatar_url]);
-        };
+        }
+
+        await connection.query(QUERY.ADD_USER_ROLE, [userId, userRoleId]);
 
         await connection.commit();
         connection.release();

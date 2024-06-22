@@ -10,6 +10,11 @@ DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS users;
 
+CREATE TABLE IF NOT EXISTS roles (
+    id          INT PRIMARY KEY AUTO_INCREMENT,
+    name        VARCHAR(255) NOT NULL UNIQUE
+);
+
 
 CREATE TABLE IF NOT EXISTS users (
     id          INT PRIMARY KEY AUTO_INCREMENT,
@@ -28,12 +33,6 @@ CREATE TABLE IF NOT EXISTS user_avatar (
     user_id     INT NOT NULL,
     avatar_url   VARCHAR(512) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
-
-
-CREATE TABLE IF NOT EXISTS roles (
-    id          INT PRIMARY KEY AUTO_INCREMENT,
-    name        VARCHAR(255) NOT NULL UNIQUE
 );
 
 
