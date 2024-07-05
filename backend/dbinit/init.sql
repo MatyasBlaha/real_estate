@@ -9,6 +9,8 @@ DROP TABLE IF EXISTS estates;
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS user_avatar;
+DROP TABLE IF EXISTS users_user_verifications;
 
 CREATE TABLE IF NOT EXISTS roles (
     id          INT PRIMARY KEY AUTO_INCREMENT,
@@ -42,6 +44,14 @@ CREATE TABLE IF NOT EXISTS user_roles (
     PRIMARY KEY (user_id, role_id),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS user_verifications (
+    id                  INT PRIMARY KEY AUTO_INCREMENT,
+    user_id             INT NOT NULL,
+    verification_token  VARCHAR(64) NOT NULL,
+    created_at          TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 
