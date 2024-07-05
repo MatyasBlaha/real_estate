@@ -1,11 +1,9 @@
 import express from 'express';
-// import {registerUser} from "../controller/user/register/register.controller.js";
+// import {checkEmailExists} from "../middleware/checkEmailExists.middleware.js";
+import {register} from "../controller/user/register/register.controller.js";
+const router = express.Router()
 
-const userRoutes = express.Router();
-
-userRoutes.post('/register',
-
-);
+router.post('/register', register);
 
 
-export default userRoutes;
+export default router;

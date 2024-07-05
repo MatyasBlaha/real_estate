@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import connectDB from './database/database.js';
 import Response from './domain/response.js';
 import HttpStatus from "./utils/HttpStatus.js";
 import estateRoutes from "./route/estate.route.js";
@@ -7,13 +8,14 @@ import userRoute from "./route/user.route.js";
 
 const app = express();
 
-// Middleware to parse JSON bodies
-app.use(express.json());
-
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-app.use('/estate', estateRoutes);
-app.use('/user', userRoute);
+app.use('/api/estate', estateRoutes);
+app.use('/api/user', userRoute);
+
+connectDB();
 
 app.get('/', (req, res) => {
     res.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, 'realEstate API - v1.0.0'));

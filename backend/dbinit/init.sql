@@ -1,7 +1,8 @@
+-- Initialize the real estate database
 CREATE DATABASE IF NOT EXISTS realEstate;
-
 USE realEstate;
 
+-- Drop existing tables if they exist
 DROP TABLE IF EXISTS messages;
 DROP TABLE IF EXISTS user_estates;
 DROP TABLE IF EXISTS estate_images;
@@ -10,19 +11,20 @@ DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS user_avatar;
-DROP TABLE IF EXISTS users_user_verifications;
+DROP TABLE IF EXISTS user_verifications;
+DROP TABLE IF EXISTS user_profiles;
 
+-- Create roles table
 CREATE TABLE IF NOT EXISTS roles (
     id          INT PRIMARY KEY AUTO_INCREMENT,
     name        VARCHAR(255) NOT NULL UNIQUE
 );
 
-
+-- Create users table
 CREATE TABLE IF NOT EXISTS users (
     id          INT PRIMARY KEY AUTO_INCREMENT,
-    username    VARCHAR(255) NOT NULL,
-    password    VARCHAR(255) NOT NULL,
     email       VARCHAR(255) NOT NULL,
+    password    VARCHAR(255) NOT NULL,
     is_active   BOOLEAN DEFAULT FALSE,
     last_login  TIMESTAMP NULL,
     created_at  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -30,14 +32,26 @@ CREATE TABLE IF NOT EXISTS users (
     CONSTRAINT  UQ_User_Email UNIQUE (email)
 );
 
-CREATE TABLE IF NOT EXISTS user_avatar (
+-- Create user profiles table
+CREATE TABLE IF NOT EXISTS user_profiles (
     id          INT PRIMARY KEY AUTO_INCREMENT,
     user_id     INT NOT NULL,
-    avatar_url   VARCHAR(512) NOT NULL,
+    first_name    VARCHAR(255) NOT NULL,
+    last_name   VARCHAR(255) NOT NULL,
+    avatar_url  VARCHAR(512),
+    description TEXT,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+-- Create user_avatar table (deprecated)
+ CREATE TABLE IF NOT EXISTS user_avatar (
+     id          INT PRIMARY KEY AUTO_INCREMENT,
+     user_id     INT NOT NULL,
+     avatar_url  VARCHAR(512) NOT NULL,
+     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+ );
 
+-- Create user_roles table
 CREATE TABLE IF NOT EXISTS user_roles (
     user_id     INT NOT NULL,
     role_id     INT NOT NULL,
@@ -46,6 +60,7 @@ CREATE TABLE IF NOT EXISTS user_roles (
     FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
 );
 
+-- Create user_verifications table
 CREATE TABLE IF NOT EXISTS user_verifications (
     id                  INT PRIMARY KEY AUTO_INCREMENT,
     user_id             INT NOT NULL,
@@ -54,7 +69,7 @@ CREATE TABLE IF NOT EXISTS user_verifications (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-
+-- Create estates table
 CREATE TABLE IF NOT EXISTS estates (
     id          INT PRIMARY KEY AUTO_INCREMENT,
     title       VARCHAR(255) NOT NULL,
@@ -73,7 +88,7 @@ CREATE TABLE IF NOT EXISTS estates (
     FOREIGN KEY (author_id) REFERENCES users(id)
 );
 
-
+-- Create estate_images table
 CREATE TABLE IF NOT EXISTS estate_images (
     id          INT PRIMARY KEY AUTO_INCREMENT,
     estate_id   INT NOT NULL,
@@ -81,7 +96,7 @@ CREATE TABLE IF NOT EXISTS estate_images (
     FOREIGN KEY (estate_id) REFERENCES estates(id) ON DELETE CASCADE
 );
 
-
+-- Create user_estates table
 CREATE TABLE IF NOT EXISTS user_estates (
     id          INT PRIMARY KEY AUTO_INCREMENT,
     user_id     INT NOT NULL,
@@ -90,7 +105,7 @@ CREATE TABLE IF NOT EXISTS user_estates (
     FOREIGN KEY (estate_id) REFERENCES estates(id) ON DELETE CASCADE
 );
 
-
+-- Create messages table
 CREATE TABLE IF NOT EXISTS messages (
     id          INT AUTO_INCREMENT PRIMARY KEY,
     estate_id   INT NOT NULL,
@@ -101,9 +116,9 @@ CREATE TABLE IF NOT EXISTS messages (
     FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-
+-- Insert default roles
 INSERT INTO roles (name) VALUES ('user'), ('admin');
 
-
+-- Create indexes for optimization
 CREATE INDEX idx_users_email ON users (email);
 CREATE INDEX idx_estates_city ON estates (city);
