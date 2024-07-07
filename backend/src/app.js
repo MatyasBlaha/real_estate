@@ -1,10 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import connectDB from './database/database.js';
-import Response from './domain/response.js';
+import Response from './models/response.js';
 import HttpStatusUtils from "./utils/HttpStatus.utils.js";
 import estateRoutes from "./route/estate.route.js";
-import userRoute from "./route/user.route.js";
+import userRoute from "./domain/user/route/user.route.js";
 import verifyRoute from "./route/verify.route.js";
 
 const app = express();

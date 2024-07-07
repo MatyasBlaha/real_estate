@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS user_profiles;
 
 -- Create roles table
 CREATE TABLE IF NOT EXISTS roles (
-    id          VARCHAR(255) UNIQUE NOT NULL,
+    id          INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name        VARCHAR(255) NOT NULL UNIQUE
 );
 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS user_avatar (
 -- Create user_roles table
 CREATE TABLE IF NOT EXISTS user_roles (
     user_id     VARCHAR(255) NOT NULL,
-    role_id     VARCHAR(255) NOT NULL,
+    role_id     INT NOT NULL DEFAULT 1,
     PRIMARY KEY (user_id, role_id),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
@@ -120,7 +120,8 @@ CREATE TABLE IF NOT EXISTS messages (
 );
 
 -- Insert default roles
-INSERT INTO roles (name) VALUES ('user'), ('admin');
+INSERT INTO roles (name) VALUES ('user');
+INSERT INTO roles (name) VALUES ('admin');
 
 -- Create indexes for optimization
 CREATE INDEX idx_users_email ON users (email);

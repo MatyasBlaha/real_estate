@@ -2,7 +2,7 @@ import express from 'express';
 
 const router = express.Router();
 
-import verifyEmailVerification from '../controller/email/verify/verifyEmailVerification.controller.js'
+import verifyEmailVerification from '../domain/user/controller/post/register/controller/email/verifyEmailVerification.controller.js'
 
 router.get('/email/:token', verifyEmailVerification)
 

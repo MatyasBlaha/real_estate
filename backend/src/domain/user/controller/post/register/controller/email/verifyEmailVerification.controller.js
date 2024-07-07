@@ -1,7 +1,7 @@
-import HttpStatus from "../../../utils/HttpStatus.utils.js";
-import Response from "../../../domain/response.js";
-import updateVerified from "../../../query/updateVerified.query.js";
-import checkRecordExists from "../../../query/checkRecordExists.query.js";
+import HttpStatus from "../../../../../../../utils/HttpStatus.utils.js";
+import Response from "../../../../../../../models/response.js";
+import updateVerified from "../../../../../../../query/updateVerified.query.js";
+import checkRecordExists from "../../../../../../../query/checkRecordExists.query.js";
 
 const verifyEmailVerification = async (req, res) => {
     try {
@@ -18,7 +18,7 @@ const verifyEmailVerification = async (req, res) => {
             const currentTime = new Date();
             if (currentTime < tokenExists.token_expires_at) {
                 await updateVerified("users", tokenExists.user_id);
-                res.status(HttpStatus.CREATED.code).json(new Response(HttpStatus.CREATED.code, HttpStatus.CREATED.status, 'user verified successfully', null));
+                res.status(HttpStatus.CREATED.code).json(new Response(HttpStatus.CREATED.code, HttpStatus.CREATED.status, 'createUser verified successfully', null));
             } else {
                 res.status(HttpStatus.FORBIDDEN.code).json(new Response(HttpStatus.FORBIDDEN.code, HttpStatus.FORBIDDEN.status, 'Token has expired', null));
             }

@@ -9,7 +9,6 @@ const emailSubject = 'Email verification';
 
 const sendVerificationEmail = async (email, token) => {
     const verificationLink = `http://localhost:3001/verify/email/${token}`;
-    console.log('email sent verification');
     const mailOptions = {
         from: emailFrom,
         to: email,
@@ -17,8 +16,6 @@ const sendVerificationEmail = async (email, token) => {
         text: `Please verify your email by clicking on the following link: ${verificationLink}`
     };
 
-    console.log(emailFrom)
-    console.log(email)
 
     await transporter.sendMail(mailOptions)
 }
