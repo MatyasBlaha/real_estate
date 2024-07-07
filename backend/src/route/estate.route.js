@@ -1,5 +1,5 @@
 import express from "express";
-// import { uploads } from '../utils/multer.js'
+// import { uploads } from '../utils/multer.utils.js'
 
 const estateRoutes = express.Router();
 

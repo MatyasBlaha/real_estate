@@ -2,28 +2,33 @@ import express from 'express';
 import cors from 'cors';
 import connectDB from './database/database.js';
 import Response from './domain/response.js';
-import HttpStatus from "./utils/HttpStatus.js";
+import HttpStatusUtils from "./utils/HttpStatus.utils.js";
 import estateRoutes from "./route/estate.route.js";
 import userRoute from "./route/user.route.js";
+import verifyRoute from "./route/verify.route.js";
 
 const app = express();
 
 app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3001'
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/estate', estateRoutes);
 app.use('/api/user', userRoute);
+app.use('/api/verify', verifyRoute);
 
 connectDB();
 
 app.get('/', (req, res) => {
-    res.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, 'realEstate API - v1.0.0'));
+    res.send(new Response(HttpStatusUtils.OK.code, HttpStatusUtils.OK.status, 'realEstate API - v1.0.0'));
 });
 
 app.all('*', (req, res) => {
-    res.status(HttpStatus.NOT_FOUND.code)
-        .send(new Response(HttpStatus.NOT_FOUND.code, HttpStatus.NOT_FOUND.status, 'Route does not exist on the server'));
+    res.status(HttpStatusUtils.NOT_FOUND.code)
+        .send(new Response(HttpStatusUtils.NOT_FOUND.code, HttpStatusUtils.NOT_FOUND.status, 'Route does not exist on the server'));
 });
 
 export default app;

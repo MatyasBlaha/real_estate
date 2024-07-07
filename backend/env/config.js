@@ -12,7 +12,6 @@ const loadEnvFile = (envFileName) => {
 
     if (fs.existsSync(envFilePath)) {
         dotenv.config({ path: envFilePath });
-        logger.info(`Loaded environment file from ${envFilePath}`);
     } else {
         logger.error(`Environment file ${envFileName} does not exist`);
         process.exit(1);
