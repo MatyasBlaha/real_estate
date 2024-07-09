@@ -1,6 +1,6 @@
 import HttpStatus from "../../../../../../../utils/HttpStatus.utils.js";
 import Response from "../../../../../../../models/response.js";
-import updateVerified from "../../../../../../../query/updateVerified.query.js";
+import updateVerified from "../../../../../../../query/updateRecord.query.js";
 import checkRecordExists from "../../../../../../../query/checkRecordExists.query.js";
 
 const verifyEmailVerification = async (req, res) => {

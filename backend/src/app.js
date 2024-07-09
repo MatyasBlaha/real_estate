@@ -9,10 +9,13 @@ import verifyRoute from "./route/verify.route.js";
 
 const app = express();
 
-app.use(cors());
 app.use(cors({
-    origin: 'http://localhost:3001'
+    origin: 'http://localhost:3001', // Update to match your frontend URL
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Allow cookies if needed
 }));
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

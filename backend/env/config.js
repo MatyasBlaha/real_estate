@@ -1,14 +1,13 @@
+import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import path from 'path';
 import fs from 'fs';
 import dotenv from 'dotenv';
 import logger from '../src/log/logger.js';
-import { fileURLToPath } from 'url';
 
 const loadEnvFile = (envFileName) => {
-    const __filename = fileURLToPath(import.meta.url);
-    const moduleDir = dirname(__filename);
-    const envFilePath = path.resolve(moduleDir, envFileName);
+    const moduleName = fileURLToPath(import.meta.url);
+    const moduleDir = dirname(moduleName);
+    const envFilePath = `${moduleDir}/${envFileName}`;
 
     if (fs.existsSync(envFilePath)) {
         dotenv.config({ path: envFilePath });

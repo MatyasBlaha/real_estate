@@ -1,11 +1,6 @@
-
-import bcrypt from 'bcrypt';
-import crypto from 'crypto';
-
 import HttpStatus from "../../../../../utils/HttpStatus.utils.js";
 import Response from "../../../../../models/response.js";
 import checkRecordExists from "../../../../../query/checkRecordExists.query.js";
-import insertRecord from "../../../../../query/insertRecord.query.js";
 
 import sendVerificationEmail from "../../../utils/email/sendVerificationEmail.utils.js";
 import createUser from "./controller/createUser.controller.js";
@@ -18,6 +13,8 @@ export const register = async (req, res) => {
         // Extract email and password from request body
         const { email, password } = req.body
 
+        console.log(email, password)
+
 
         // Validate input data
         if(!email || !password){
@@ -27,14 +24,23 @@ export const register = async (req, res) => {
 
         // CHECK IF USER ALREADY EXISTS  (if true, send verification email, else create user)
         const userAlreadyExists = await checkRecordExists("users", "email", email)
-
+        console.log(userAlreadyExists)
 
         // If user already exists, send verification email, else create user and create verification token
         if(userAlreadyExists){
-            res.status(HttpStatus.CONFLICT.code).json(new Response(HttpStatus.CONFLICT.code, HttpStatus.CONFLICT.status, 'createUser already exists', null))
+            // res.status(HttpStatus.CONFLICT.code).json(new Response(HttpStatus.CONFLICT.code, HttpStatus.CONFLICT.status, 'User already exists', null))
 
-            const token = await createVerificationToken(userAlreadyExists.id)
-            await sendVerificationEmail(email, token);
+
+            // If user is already verified, respond with success message, else send verification email
+            if(userAlreadyExists.verified === 1){
+                res.status(HttpStatus.OK.code).json(new Response(HttpStatus.OK.code, HttpStatus.OK.status, 'User si already verified, Login', null))
+            } else {
+                const token = await createVerificationToken(userAlreadyExists.id)
+                await sendVerificationEmail(email, token);
+                res.status(HttpStatus.OK.code).json(new Response(HttpStatus.OK.code, HttpStatus.OK.status, 'User is already exists, verification email resent', null))
+            }
+
+
         } else {
 
             // Controller to create User and create verification token

@@ -1,5 +1,6 @@
 import mysql from 'mysql2'
 import config from '../config/mysql.config.js'
+
 const pool = mysql.createPool(config);
 
 const checkRecordExists = (tableName, column, value) => {
