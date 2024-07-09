@@ -27,7 +27,7 @@ describe('POST /api/user/login',  () => {
     const id = process.env.TEST_LOGIN_ID;
     const email= process.env.TEST_LOGIN_EMAIL;
     const hashedPassword =  bcrypt.hash(password, salt);
-    const verified = process.env.TEST_LOGIN_VERIFIED;
+    const verified = 1;
 
 
     const user = {
@@ -50,4 +50,57 @@ describe('POST /api/user/login',  () => {
         expect(response.status).toBe(401);
         expect(response.body.message).toBe('User not found');
     });
+
+
+
+    it('should respond 401 if user is not verified', async () => {
+        const unverifiedUser = {...user, verified: 0};
+        checkRecordExists.mockResolvedValue(unverifiedUser);
+
+        const response = await request(app).post('/api/user/login').send({email, password});
+
+        expect(response.status).toBe(401);
+        expect(response.body.message).toBe('User is not verified, please check email');
+    });
+
+
+
+    it('should respond 401 if password is invalid', async () => {
+        checkRecordExists.mockResolvedValue(user);
+        bcrypt.compare.mockResolvedValue(false);
+
+        const response = await request(app).post('/api/user/login').send({email, password});
+
+        expect(response.status).toBe(401);
+        expect(response.body.message).toBe('Invalid password');
+    });
+
+
+
+    it("should respond 500 if JWT is couldn't be create", async () => {
+        checkRecordExists.mockResolvedValue(user);
+        bcrypt.compare.mockResolvedValue(true);
+        createJWToken.mockResolvedValue(false);
+
+        const response = await request(app).post('/api/user/login').send({email, password});
+
+        expect(response.status).toBe(500);
+        expect(response.body.message).toBe("Couldn't create JWT token");
+    });
+
+
+
+    it('should respond 200 if user is successfully logged', async () => {
+        checkRecordExists.mockResolvedValue(user);
+        bcrypt.compare.mockResolvedValue(true);
+        createJWToken.mockResolvedValue(true);
+        updateLastLoginTimeStamp.mockResolvedValue(true);
+
+        const response = await request(app).post('/api/user/login').send({email, password});
+
+        expect(response.status).toBe(200);
+        expect(response.body.message).toBe('Login successful');
+    });
+
+
 })

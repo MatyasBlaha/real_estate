@@ -38,6 +38,9 @@ export const login = async (req, res) => {
 
         // Create auth token
         const token = await createJWToken(user.id, user.email, res);
+        if(!token) {
+            return res.status(HttpStatus.INTERNAL_SERVER_ERROR.code).json(new Response(HttpStatus.INTERNAL_SERVER_ERROR.code, HttpStatus.INTERNAL_SERVER_ERROR.status, "Couldn't create JWT token", null));
+        }
 
         res.status(HttpStatus.OK.code).json(new Response(HttpStatus.OK.code, HttpStatus.OK.status, 'Login successful', token));
     } catch (err) {
