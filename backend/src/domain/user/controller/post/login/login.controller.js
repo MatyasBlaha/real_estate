@@ -4,7 +4,6 @@ import Response from "../../../../../models/response.js";
 import logger from "../../../../../log/logger.js";
 import checkRecordExists from "../../../../../query/checkRecordExists.query.js";
 import updateLastLoginTimeStampQuery from "./query/updateLastLoginTimeStamp.query.js";
-import createJWToken from "./controller/createJWToken.controller.js";
 
 export const login = async (req, res) => {
     const { email, password } = req.body;
@@ -37,12 +36,9 @@ export const login = async (req, res) => {
         await updateLastLoginTimeStampQuery("users", "last_login", user.id);
 
         // Create auth token
-        const token = await createJWToken(user.id, user.email, res);
-        if(!token) {
-            return res.status(HttpStatus.INTERNAL_SERVER_ERROR.code).json(new Response(HttpStatus.INTERNAL_SERVER_ERROR.code, HttpStatus.INTERNAL_SERVER_ERROR.status, "Couldn't create JWT token", null));
-        }
+        req.session.userId = user.id
 
-        res.status(HttpStatus.OK.code).json(new Response(HttpStatus.OK.code, HttpStatus.OK.status, 'Login successful', token));
+        res.status(HttpStatus.OK.code).json(new Response(HttpStatus.OK.code, HttpStatus.OK.status, 'Login successful', null));
     } catch (err) {
         logger.error(err);
         res.status(HttpStatus.INTERNAL_SERVER_ERROR.code).json(new Response(HttpStatus.INTERNAL_SERVER_ERROR.code, HttpStatus.INTERNAL_SERVER_ERROR.status, "Couldn't login user", null));

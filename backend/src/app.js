@@ -6,6 +6,7 @@ import HttpStatusUtils from "./utils/HttpStatus.utils.js";
 import estateRoutes from "./route/estate.route.js";
 import userRoute from "./domain/user/route/user.route.js";
 import verifyRoute from "./route/verify.route.js";
+import sessionMiddleware from "./domain/user/controller/post/login/middleware/session.middleware.js";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(sessionMiddleware)
 
 app.use('/api/estate', estateRoutes);
 app.use('/api/user', userRoute);
