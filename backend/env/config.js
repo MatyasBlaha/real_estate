@@ -2,7 +2,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import fs from 'fs';
 import dotenv from 'dotenv';
-import logger from '../src/log/logger.js';
+import logger from '../src/apps/shared/log/logger.js';
 
 const loadEnvFile = (envFileName) => {
     const moduleName = fileURLToPath(import.meta.url);

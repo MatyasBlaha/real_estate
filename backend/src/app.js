@@ -1,12 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import connectDB from './database/database.js';
-import Response from './models/response.js';
-import HttpStatusUtils from "./utils/HttpStatus.utils.js";
-import estateRoutes from "./route/estate.route.js";
-import userRoute from "./domain/user/route/user.route.js";
-import verifyRoute from "./route/verify.route.js";
-import sessionMiddleware from "./domain/user/controller/post/login/middleware/session.middleware.js";
+import Response from './apps/shared/models/response.js';
+import HttpStatusUtils from "./apps/shared/utils/HttpStatus.utils.js";
+import authRouter from "./apps/auth/routes/auth.route.js";
+import sessionCookieMiddleware from "../src/apps/auth/config/sessionCookie.config.js";
+import usernameCookieMiddleware from "../src/apps/auth/config/usernameCookies.config.js";
 
 const app = express();
 
@@ -19,11 +18,11 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(sessionMiddleware)
 
-app.use('/api/estate', estateRoutes);
-app.use('/api/user', userRoute);
-app.use('/api/verify', verifyRoute);
+app.use(sessionCookieMiddleware);
+app.use(usernameCookieMiddleware);
+
+app.use('/api/user', authRouter);
 
 connectDB();
 

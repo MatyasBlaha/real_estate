@@ -1,19 +1,20 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Link } from "react-router-dom";
+
+import AppRoutes from './routes'
+
+import HeaderNavbar from './Components/Navbar/Navbar'
+import {UserProvider} from "./context/UserContext";
 
 
 function App() {
   return (
-    <div className="App">
-        <div>
-            <Link to="/form">Register</Link>
-            <Link to="/login">Login</Link>
-        </div>
-            <Routes>
-
-            </Routes>
-    </div>
+      <UserProvider>
+          <div className="App">
+              <HeaderNavbar/>
+              <AppRoutes/>
+          </div>
+      </UserProvider>
   );
 }
 

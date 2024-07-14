@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS estates;
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS sessions;
 DROP TABLE IF EXISTS user_verification_tokens;
 DROP TABLE IF EXISTS user_avatar;
 DROP TABLE IF EXISTS user_verifications;
@@ -24,6 +25,8 @@ CREATE TABLE IF NOT EXISTS roles (
 -- Create users table
 CREATE TABLE IF NOT EXISTS users (
     id          VARCHAR(255) UNIQUE NOT NULL,
+    first_name   VARCHAR(255) NOT NULL,
+    last_name   VARCHAR(255) NOT NULL,
     email       VARCHAR(255) NOT NULL,
     password    VARCHAR(255) NOT NULL,
     verified     BOOLEAN DEFAULT FALSE,
@@ -41,6 +44,14 @@ CREATE TABLE IF NOT EXISTS user_verification_tokens (
     token_created_at          TIMESTAMP NOT NULL,
     token_expires_at          TIMESTAMP NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE IF NOT EXISTS sessions (
+    session_id          VARCHAR(255) NOT NULL,
+    expires             INT(11) UNSIGNED NOT NULL,
+    data                TEXT,
+    PRIMARY KEY (session_id)
 );
 
 -- Create user profiles table

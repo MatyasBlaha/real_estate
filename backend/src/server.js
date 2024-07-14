@@ -1,6 +1,6 @@
 import ip from 'ip';
 import loadEnvFile from "../env/config.js";
-import logger from './log/logger.js';
+import logger from './apps/shared/log/logger.js';
 import app from './app.js';
 
 

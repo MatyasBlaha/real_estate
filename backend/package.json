@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=dev nodemon src/server.js",
     "prod": "cross-env NODE_ENV=prod nodemon src/server.js",
-    "test": "jest"
+    "test": "jest --forceExit"
   },
   "keywords": [
     "nodejs",

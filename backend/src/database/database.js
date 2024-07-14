@@ -1,6 +1,6 @@
 import mysql from 'mysql2'
 import config from '../config/mysql.config.js'
-import logger from '../log/logger.js';
+import logger from '../apps/shared/log/logger.js';
 
 const connectDB = async () => {
     const pool = mysql.createPool(config);

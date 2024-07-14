@@ -25,3 +25,6 @@ volumes:
 networks:
   internalnet:
     driver: bridge
+
+
+    #docker-compose exec mysqldb mysql -u admin -p realEstate
