@@ -1,10 +1,8 @@
 import encrypt from "./encryptText.utils.js";
 
 export const cookieOptions = {
-    httpOnly: true,
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
     secure: false,
-    sameSite: 'Lax',
 }
 
 export const setSessionAndCookies = async (req, res, user) => {

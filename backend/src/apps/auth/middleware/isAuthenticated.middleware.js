@@ -3,6 +3,7 @@ import { createResponse } from "../../shared/utils/response.utils.js";
 import Response from "../../shared/models/response.js";
 
 const isAuthenticated = (req, res, next) => {
+    console.log(req.session)
     if(req.session && req.session.userId) {
         return next();
     } else {

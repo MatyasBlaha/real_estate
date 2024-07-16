@@ -46,7 +46,7 @@ export const login = async (req, res) => {
         await setSessionAndCookies(req, res, user)
 
 
-        res.status(HttpStatus.OK.code).json(createResponse(HttpStatus.OK.code, HttpStatus.OK.status, 'Login successful', user.first_name));
+        res.status(HttpStatus.OK.code).json(createResponse(HttpStatus.OK.code, HttpStatus.OK.status, 'Login successful', null));
         
     } catch (err) {
         logger.error({ error: err.message })
