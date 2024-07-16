@@ -1,39 +1,71 @@
 import React, { useState } from 'react';
 
-const LoginForm = ({ onSubmit }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+import { useForm } from 'react-hook-form'
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        setError('');
-        onSubmit({ email, password }).catch(err => setError(err.message)); // Extract the error message
-    };
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { FormGroup, FormControl, FormLabel, Button } from 'react-bootstrap';
+import NavDropdown from "react-bootstrap/NavDropdown";
+import {Link} from "react-router-dom";
+
+const LoginForm = ({ onSubmit }) => {
+
+    //save firstName, lastName, email, password
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
     return (
-        <form onSubmit={handleSubmit}>
+        <div className="flex">
             <div>
-                <label>Email</label>
-                <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="flex flex-1 flex-col justify-evenly"
+                >
+                    <FormGroup>
+                        <FormLabel>Email address</FormLabel>
+                        <FormControl
+                            type="email"
+                            placeholder="Enter email"
+                            {...register('email', {required: true})}
+                        >
+                            {errors.email && <div style={{color: 'red'}}>{errors.email.message}</div>}
+                        </FormControl>
+                    </FormGroup>
+
+                    <FormGroup>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl
+                            type="password"
+                            placeholder="Enter password"
+                            {...register('password', {required: true})}
+                        >
+                            {errors.password && <div style={{color: 'red'}}>{errors.password.message}</div>}
+                        </FormControl>
+                    </FormGroup>
+
+                    <Button
+                        variant="primary"
+                        type='submit'
+                    >
+                <span>
+                    Login
+                </span>
+                    </Button>
+
+
+                </form>
             </div>
+
             <div>
-                <label>Password</label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
+                <h3>Don't have an account?</h3>
+                <p>Sign up now to create your account.</p>
+                <NavDropdown.Item as={Link}  to='/register'>
+                    <Button variant="primary">
+                        <span>
+                            Sign up
+                        </span>
+                    </Button>
+                </NavDropdown.Item>
             </div>
-            {error && <p style={{ color: 'ed' }}>{error}</p>}
-            <button type="submit">Login</button>
-        </form>
+        </div>
     );
 };
 
