@@ -4,7 +4,6 @@ import insertRecord from "../../shared/queries/insertRecord.query.js";
 import deleteRecord from '../../shared/queries/deleteRecord.query.js'
 
 import createUser from "../services/register/createUser.service.js";
-import createUserRole from "../services/register/createUserRole.service.js";
 import createVerificationToken from "../services/register/createVerificationToken.service.js";
 
 const userRepository = {
@@ -36,8 +35,10 @@ const userRepository = {
 
     async saveUserRoleToDatabase(user) {
         try {
-            const userRole = createUserRole(user);
             const tableName = 'user_roles';
+            const userRole = {
+                user_id: user.id,
+            };
 
             await insertRecord(tableName, userRole);
         } catch (err) {
@@ -69,17 +70,17 @@ const userRepository = {
     },
 };
 
-export const removeExpiredToken = async (user) => {
+export const removeExpiredToken = async (userId) => {
     try {
         const tableName = 'user_verification_tokens';
-        const column = 'user_id';
-        const data = user.id
+        const data = userId;
+        const time = new Date();
 
-        await deleteRecord(tableName, column, data);
+        await deleteRecord(tableName, data, time);
     } catch (err) {
         throw new Error(`Error removing expired token: ${err.message}`);
 
     }
-}
+};
 
 export default userRepository;

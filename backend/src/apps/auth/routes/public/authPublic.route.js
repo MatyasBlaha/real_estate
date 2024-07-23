@@ -1,7 +1,7 @@
 import express from 'express';
 const publicRouter = express.Router();
 
-import verifyEmailVerification from "../../services/email/verifyEmailVerification.service.js";
+import verifyEmailVerification from "../../controllers/verifyEmailVerification.controller.js";
 
 import { register } from '../../controllers/register.controller.js'
 import { login } from '../../controllers/login.controller.js'

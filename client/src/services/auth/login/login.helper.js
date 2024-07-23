@@ -1,7 +1,7 @@
-import {login} from "./login.service";
-import {getUsernameFromCookies} from "../../../utils/cookieUtils";
+import { login } from "./login.service";
+import { getUsernameFromCookies } from "../../../utils/cookieUtils";
 
-const handleLogin = async (credentials, setUser, navigate) => {
+const handleLogin = async (credentials, setUser, navigate, setError) => {
     try {
         await login(credentials);
         const username = getUsernameFromCookies();
@@ -10,9 +10,9 @@ const handleLogin = async (credentials, setUser, navigate) => {
         }
         navigate('/home');
     } catch (error) {
-        console.error('Invalid credentials:', error);
-        throw new Error('Invalid credentials');
+        setError(error.message);
+        throw error;
     }
 };
 
-export { handleLogin }
+export { handleLogin };

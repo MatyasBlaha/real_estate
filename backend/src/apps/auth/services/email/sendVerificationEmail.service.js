@@ -8,7 +8,8 @@ const emailFrom = process.env.AUTH_USER
 const emailSubject = 'Email verification';
 
 const sendVerificationEmail = async (email, token) => {
-    const verificationLink = `http://localhost:3001/verify/email/${token}`;
+    const verificationToken = token.verification_token
+    const verificationLink = `http://localhost:3001/verify/email/${verificationToken}`;
     const mailOptions = {
         from: emailFrom,
         to: email,

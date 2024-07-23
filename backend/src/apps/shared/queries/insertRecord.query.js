@@ -4,6 +4,7 @@ const pool = mysql.createPool(config);
 
 const insertRecord = (tableName, record) => {
     return new Promise((resolve, reject) => {
+
         const QUERY = `INSERT INTO ${tableName} SET ?`
 
         pool.query(QUERY, [record], (err, results) => {

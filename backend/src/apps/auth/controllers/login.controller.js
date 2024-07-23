@@ -8,6 +8,8 @@ import {checkUserExistenceAndVerification, updateLastLoginTimeStamp} from "../re
 import validateLoginInput from "../services/login/validateLoginInput.service.js";
 import verificatePassword from "../services/login/verificationPassword.service.js";
 import {setSessionAndCookies} from "../utils/cookie.utils.js";
+import userRepository from "../repository/register.repository.js";
+import sendVerificationEmail from "../services/email/sendVerificationEmail.service.js";
 
 export const login = async (req, res) => {
     try {
@@ -29,6 +31,8 @@ export const login = async (req, res) => {
 
         // Check if user exists and is verified in the database.
         if(user.verified !== 1) {
+            const token = await userRepository.saveVerificationTokenToDatabase(user);
+            await sendVerificationEmail(email, token)
             return res.status(HttpStatus.UNAUTHORIZED.code).json(new Response(HttpStatus.UNAUTHORIZED.code, HttpStatus.UNAUTHORIZED.status, 'User is not verified, please check email', null));
         }
 

@@ -32,11 +32,10 @@ export const register = async (req, res) => {
                 await sendVerificationEmail(email, token)
             }
         } else {
-
             // Create a new registration.
             const user = await userRepository.saveUserToDatabase(firstName, lastName, email, password);
             await userRepository.saveUserRoleToDatabase(user);
-            const token = await userRepository.saveVerificationTokenToDatabase(isUserAlreadyRegistered);
+            const token = await userRepository.saveVerificationTokenToDatabase(user);
             await sendVerificationEmail(email, token);
             res.status(HttpStatus.CREATED.code).json(createResponse(HttpStatus.CREATED.code, HttpStatus.CREATED.status, 'createUser created successfully', user));
         }
