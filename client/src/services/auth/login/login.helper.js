@@ -1,7 +1,8 @@
 import { login } from "./login.service";
 import { getUsernameFromCookies } from "../../../utils/cookieUtils";
 
-const handleLogin = async (credentials, setUser, navigate, setError) => {
+
+export const handleLogin = async (credentials, setUser, navigate, setError) => {
     try {
         await login(credentials);
         const username = getUsernameFromCookies();
@@ -9,10 +10,10 @@ const handleLogin = async (credentials, setUser, navigate, setError) => {
             setUser(username);
         }
         navigate('/home');
+        return { type: 'success', message: 'Login successful!' };
     } catch (error) {
         setError(error.message);
-        throw error;
+        throw { type: 'error', message: 'Error occurred' };
     }
 };
 
-export { handleLogin };

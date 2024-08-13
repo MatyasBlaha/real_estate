@@ -9,10 +9,8 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import NavbarItem from "./NavbarItem";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import {handleLogout} from "../../services/auth/logout/logout.helper";
 
-import '../../styles/components/_navbar.scss'
-import dropdown from "bootstrap/js/src/dropdown";
+import {handleLogout} from "../../services/auth/logout/logout.helper";
 
 const HeaderNavbar = () => {
     const { user, setUser } = useContext(UserContext)
