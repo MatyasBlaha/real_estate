@@ -13,7 +13,7 @@ export const handleLogin = async (credentials, setUser, navigate, setError) => {
         return { type: 'success', message: 'Login successful!' };
     } catch (error) {
         setError(error.message);
-        throw { type: 'error', message: 'Error occurred' };
+        throw error
     }
 };
 
