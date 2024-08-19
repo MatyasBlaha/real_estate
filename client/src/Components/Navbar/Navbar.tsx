@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
 import { Link, useLocation } from 'react-router-dom';
-import { UserContext } from '../../context/UserContext'
+import { UserContext } from '../../context/UserContext.tsx'
 import { useNavigate } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
-import NavbarItem from "./NavbarItem";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
 import {handleLogout} from "../../services/auth/logout/logout.helper";

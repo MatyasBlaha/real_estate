@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../context/NotificationContext';
-import { UserContext } from '../context/UserContext';
+import { UserContext } from '../context/UserContext.tsx';
 import 'react-toastify/dist/ReactToastify.css';
 
 import LoginForm from '../Components/Auth/LoginForm';

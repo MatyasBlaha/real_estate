@@ -1,0 +1,11 @@
+:root {
+    --lch-highlight-blue: 20.67% 26.98 260.72;
+
+    /* Abstraction */
+    --color-bg: oklch(var(--lch-highlight-blue));
+    --color-highlight-blue-darker: color-mix(
+    in lch,
+        var(--color-bg),
+        black 15%
+    );
+}

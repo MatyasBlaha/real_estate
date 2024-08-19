@@ -1,0 +1,56 @@
+/* Reset all margins, paddings, and borders */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 0;
+}
+
+/* Reset list styles */
+ul,
+ol {
+    list-style: none;
+}
+
+/* Reset anchor styles */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Reset table borders and spacing */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* Reset images */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Reset form elements */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+    outline: none;
+}
+
+/* Ensure block elements occupy full width */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}

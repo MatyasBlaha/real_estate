@@ -6,8 +6,10 @@ export const cookieOptions = {
 }
 
 export const setSessionAndCookies = async (req, res, user) => {
+
     req.session.userId = user.id;
     req.session.username = user.first_name;
+
 
     const encryptedName = await encrypt(user.first_name)
 
