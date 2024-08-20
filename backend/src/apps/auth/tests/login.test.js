@@ -3,7 +3,7 @@ import express from 'express';
 import session from 'express-session';
 import bcrypt from "bcrypt";
 import loadEnvFile from '../../../../env/config.js';
-import { login } from '../controllers/login.controller.js';
+import { login } from '../controllers/login.controller.ts';
 import checkRecordExists from '../../shared/queries/checkRecordExists.query.js';
 import validateLoginInput from "../services/login/validateLoginInput.service.js";
 import verificatePassword from "../services/login/verificationPassword.service.js";

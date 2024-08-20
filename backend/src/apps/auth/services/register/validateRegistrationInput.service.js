@@ -1,5 +1,5 @@
-import HttpStatus from '../../../shared/utils/HttpStatus.utils.js';
-import HttpsStatus from "../../../shared/utils/HttpStatus.utils.js";
+import HttpStatus from '../../../shared/utils/http/HttpStatus.utils.ts';
+import HttpsStatus from "../../../shared/utils/http/HttpStatus.utils.ts";
 
 const validateRegisterInput = (firstName, lastName, email, password) => {
     if (!firstName || !lastName || !email || !password) {

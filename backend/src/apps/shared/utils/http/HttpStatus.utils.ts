@@ -1,4 +1,21 @@
-const HttpStatusUtils = {
+interface HttpStatus {
+    code: number;
+    status: string;
+}
+
+const HttpStatusUtils: {
+    OK: HttpStatus;
+    CREATED: HttpStatus;
+    NO_CONTENT: HttpStatus;
+    BAD_REQUEST: HttpStatus;
+    UNAUTHORIZED: HttpStatus;
+    FORBIDDEN: HttpStatus;
+    NOT_FOUND: HttpStatus;
+    CONFLICT: HttpStatus;
+    LIMIT_FILE_SIZE: HttpStatus;
+    TOO_MANY_REQUESTS: HttpStatus;
+    INTERNAL_SERVER_ERROR: HttpStatus;
+} = {
     OK: { code: 200, status: 'OK' },
     CREATED: { code: 201, status: 'CREATED' },
     NO_CONTENT: { code: 204, status: 'NO_CONTENT' },

@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 
-import HttpsStatus from '../../../shared/utils/HttpStatus.utils.js'
+import HttpsStatus from '../../../shared/utils/http/HttpStatus.utils.ts'
 
 const verificatePassword = async (password, userPassword) => {
      const verifiedPassword = await bcrypt.compare(password, userPassword);

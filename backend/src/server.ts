@@ -1,5 +1,5 @@
-import ip from 'ip';
-import loadEnvFile from "../env/config.js";
+import ip from 'ip'
+import loadEnvFile from "../env/config";
 import logger from './apps/shared/log/logger.js';
 import app from './app.js';
 

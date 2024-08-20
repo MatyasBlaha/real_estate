@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, {useEffect} from "react";
 import { Link, useLocation } from 'react-router-dom';
 import { useUserContext } from '../../context/useUserContext.tsx'
 import { useNavigate } from "react-router-dom";
@@ -10,15 +10,24 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from "react-bootstrap/NavDropdown";
 
 import {handleLogout} from "../../services/auth/logout/logout.helper.ts";
+import {getUsernameFromCookies} from "../../utils/cookieUtils.ts";
 
 const HeaderNavbar = () => {
-    const { user, setUser } = useUserContext();
+    const { user, setUser} = useUserContext();
     const navigate = useNavigate();
     const location = useLocation();
 
+
+    useEffect(() => {
+        const username = getUsernameFromCookies();
+        if (username) {
+            setUser(username)
+        }
+    }, [setUser]);
+
     const handleLogoutClick = async () => {
         try {
-            await handleLogout({ navigate, setUser });  // Pass as an object
+            await handleLogout({ navigate, setUser });
         } catch (err) {
             console.error('Error occurred while logging out:', err.message);
         }

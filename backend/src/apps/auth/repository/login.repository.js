@@ -1,4 +1,4 @@
-import HttpStatus from '../../shared/utils/HttpStatus.utils.js';
+import HttpStatus from '../../shared/utils/http/HttpStatus.utils.ts';
 
 import checkRecordExists from '../../shared/queries/checkRecordExists.query.js';
 import updateLastLoginTimeStampQuery from '../queries/updateLastLoginTimeStamp.query.js';

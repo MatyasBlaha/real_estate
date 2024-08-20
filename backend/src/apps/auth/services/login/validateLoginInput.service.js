@@ -1,4 +1,4 @@
-import HttpsStatus from '../../../shared/utils/HttpStatus.utils.js'
+import HttpsStatus from '../../../shared/utils/http/HttpStatus.utils.ts'
 
 const validateLoginInput = (email, password) => {
 

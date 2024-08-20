@@ -1,5 +1,5 @@
-import HttpStatus from '../../shared/utils/HttpStatus.utils.js';
-import { createResponse } from "../../shared/utils/response.utils.js";
+import HttpStatus from '../../shared/utils/http/HttpStatus.utils.ts';
+import { createResponse } from "../../shared/utils/response.utils.ts";
 import Response from "../../shared/models/response.js";
 
 const isAuthenticated = (req, res, next) => {

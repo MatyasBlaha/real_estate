@@ -1,9 +1,9 @@
-import HttpStatus from "../../shared/utils/HttpStatus.utils.js";
+import HttpStatus from "../../shared/utils/http/HttpStatus.utils.ts";
 import Response from "../../shared/models/response.js";
 import updateVerified from "../../shared/queries/updateRecord.query.js";
 import checkRecordExists from "../../shared/queries/checkRecordExists.query.js";
 import verifyEmailVerificationRepository from "../repository/verifyEmailVerification.repository.js";
-import {createResponse} from "../../shared/utils/response.utils.js";
+import {createResponse} from "../../shared/utils/response.utils.ts";
 
 const verifyEmailVerification = async (req, res) => {
 

@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import connectDB from './database/database.js';
 import Response from './apps/shared/models/response.js';
-import HttpStatusUtils from "./apps/shared/utils/HttpStatus.utils.js";
+import HttpStatusUtils from "./apps/shared/utils/http/HttpStatus.utils.js";
 import authRouter from "./apps/auth/routes/auth.route.js";
 import sessionCookieMiddleware from "../src/apps/auth/config/sessionCookie.config.js";
 import usernameCookieMiddleware from "../src/apps/auth/config/usernameCookies.config.js";
@@ -10,9 +10,9 @@ import usernameCookieMiddleware from "../src/apps/auth/config/usernameCookies.co
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:3001', // Update to match your frontend URL
+    origin: 'http://localhost:3001',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true, // Allow cookies if needed
+    credentials: true, 
 }));
 
 

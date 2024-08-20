@@ -1,7 +1,7 @@
 import Response from "../../shared/models/response.js";
-import HttpStatus from "../../shared/utils/HttpStatus.utils.js";
+import HttpStatus from "../../shared/utils/http/HttpStatus.utils.ts";
 import logger from '../../shared/log/logger.js'
-import { createResponse } from "../../shared/utils/response.utils.js";
+import { createResponse } from "../../shared/utils/response.utils.ts";
 
 
 import validateRegisterInput from "../services/register/validateRegistrationInput.service.js";

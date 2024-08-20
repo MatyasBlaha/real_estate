@@ -1,6 +1,6 @@
 import express from 'express';
 import isAuthenticated from "../../middleware/isAuthenticated.middleware.js";
-import {logout} from "../../controllers/logout.controller.js";
+import {logout} from "../../controllers/logout.controller.ts";
 const protectedRouter = express.Router();
 
 
