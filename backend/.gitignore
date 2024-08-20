@@ -3,6 +3,10 @@ node_modules/
 
 # Environment variables
 .env
+.env.config
+.env.security
+.env.tests
+.env.transporter
 
 # Logs
 npm-debug.log*
