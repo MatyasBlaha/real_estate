@@ -28,7 +28,7 @@ export const login = async (req: Request<{}, {}, LoginRequestBody>, res: Express
     try {
         const { email, password } = req.body;
 
-        const validationLoginResult = validateLoginInput(email, password);
+        const validationLoginResult = await validateLoginInput(email, password);
         if (!validationLoginResult.isValid) {
             return sendErrorResponse(res, HttpStatus.UNAUTHORIZED.code, HttpStatus.UNAUTHORIZED.status, messageEmailAndPasswordRequired);
         }
