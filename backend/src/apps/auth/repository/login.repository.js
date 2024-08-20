@@ -10,14 +10,7 @@ const checkUserExistenceAndVerification = async (email) => {
 
   const user = await checkRecordExists(tableName, column, email);
   if (!user) {
-      return {
-          error: {
-              status: HttpStatus.UNAUTHORIZED.status,
-              code: HttpStatus.UNAUTHORIZED.code,
-              message: 'User not found',
-              data: null
-          }
-      }
+      console.log(user)
   } else {
       return user;
   }

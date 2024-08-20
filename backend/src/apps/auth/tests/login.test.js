@@ -5,16 +5,16 @@ import bcrypt from "bcrypt";
 import loadEnvFile from '../../../../env/config.js';
 import { login } from '../controllers/login.controller.ts';
 import checkRecordExists from '../../shared/queries/checkRecordExists.query.js';
-import validateLoginInput from "../services/login/validateLoginInput.service.js";
-import verificatePassword from "../services/login/verificationPassword.service.js";
+import validateLoginInput from "../services/login/validateLoginInput.service.ts";
+import verificatePassword from "../services/login/verificationPassword.service.ts";
 import updateLastLoginTimeStamp from '../../shared/queries/updateRecord.query.js';
 import {setSessionAndCookies} from "../utils/cookie.utils.js";
 
 jest.mock('bcrypt');
-jest.mock('../services/login/validateLoginInput.service.js')
+jest.mock('../services/login/validateLoginInput.service.ts')
 jest.mock('../../shared/queries/checkRecordExists.query.js');
 jest.mock('../../shared/queries/updateRecord.query.js');
-jest.mock('../services/login/verificationPassword.service.js')
+jest.mock('../services/login/verificationPassword.service.ts')
 jest.mock('../utils/cookie.utils.js')
 
 const app = express();

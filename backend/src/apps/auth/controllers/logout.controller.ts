@@ -1,27 +1,31 @@
 import HttpStatus from "../../shared/utils/http/HttpStatus.utils.js";
-import { createResponse } from '../../shared/utils/response.utils.js'
-import logger from "../../shared/log/logger.js"
 import loadEnvFile from "../../../../env/config.js";
 import removeCookies from "../utils/removeCookies.utils.js";
-import { handleInternalServerErrorStatus } from "../../shared/utils/http/handleHttpStatus/handleInternalServerErrorStatus";
-import {handleOkStatus} from "../../shared/utils/http/handleHttpStatus/handleOkStatus";
-
+import { sendSuccessResponse, sendErrorResponse } from '../../shared/utils/http/handleHttpStatus/sendHttpResponse'
+import {Request, Response as ExpressResponse} from "express";
 
 loadEnvFile('.env.security');
 
-export const logout: (req: any, res: any) => Promise<void> = async(req, res) => {
+interface CustomSessionRequest extends Request {
+    session: {
+        destroy: (callback: (err: Error | null) => void) => void;
+    };
+}
+
+export const logout = async (req: CustomSessionRequest, res: ExpressResponse): Promise<ExpressResponse> => {
 
     try {
+
         req.session.destroy(async (error: Error) => {
             if (error) {
-                return handleInternalServerErrorStatus(error, res)
+                return sendErrorResponse(res, HttpStatus.INTERNAL_SERVER_ERROR.code, HttpStatus.INTERNAL_SERVER_ERROR.status, 'Internal Server Error', error);
             }
             res.clearCookie(process.env.SESSION_COOKIES_NAME);
 
             await removeCookies(res)
-            return handleOkStatus(error, res, 'logout successful')
+            return sendSuccessResponse(res, 'Logout successful', null);
         })
     } catch (error: Error) {
-        return handleInternalServerErrorStatus(error, res)
+        return sendErrorResponse(res, HttpStatus.INTERNAL_SERVER_ERROR.code, HttpStatus.INTERNAL_SERVER_ERROR.status, 'Internal Server Error', error);
     }
 }
