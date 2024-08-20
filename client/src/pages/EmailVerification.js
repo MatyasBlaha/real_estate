@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import HandleEmailVerification from "../services/auth/emailVerification/EmailVerification.helper";
+import HandleEmailVerification from "../services/auth/emailVerification/EmailVerification.helper.ts";
 
 const EmailVerification = () => {
     const location = useLocation();

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link, useLocation } from 'react-router-dom';
-import { UserContext } from '../../context/UserContext.tsx'
+import { useUserContext } from '../../context/useUserContext.tsx'
 import { useNavigate } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -9,17 +9,16 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from "react-bootstrap/NavDropdown";
 
-import {handleLogout} from "../../services/auth/logout/logout.helper";
+import {handleLogout} from "../../services/auth/logout/logout.helper.ts";
 
 const HeaderNavbar = () => {
-    const { user, setUser } = useContext(UserContext)
+    const { user, setUser } = useUserContext();
     const navigate = useNavigate();
     const location = useLocation();
 
     const handleLogoutClick = async () => {
         try {
-            console.log('clicked')
-            await handleLogout(navigate, setUser);
+            await handleLogout({ navigate, setUser });  // Pass as an object
         } catch (err) {
             console.error('Error occurred while logging out:', err.message);
         }

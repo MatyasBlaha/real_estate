@@ -1,5 +1,3 @@
-import react from 'react';
-
 import Cookies from "js-cookie";
 import CryptoJS from "crypto-js";
 

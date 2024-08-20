@@ -1,4 +1,4 @@
-import axios from '../../axios.config'
+import axios from '../../axios.config.ts'
 
 export const  emailVerification = async (token) => {
     try {

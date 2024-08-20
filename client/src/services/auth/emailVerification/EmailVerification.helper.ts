@@ -1,4 +1,4 @@
-import { emailVerification } from "./emailVerification.service";
+import { emailVerification } from "./emailVerification.service.ts";
 
 const HandleEmailVerification = (token) => {
     console.log(token);

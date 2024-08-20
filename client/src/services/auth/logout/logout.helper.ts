@@ -1,10 +1,15 @@
-import {logout} from "./logout.service";
+import {logout} from "./logout.service.ts";
 import {useEffect} from "react";
-import {getUsernameFromCookies} from "../../../utils/cookieUtils";
+import {getUsernameFromCookies} from "../../../utils/cookieUtils.ts";
 
 
+interface HandleLogoutProps {
+    navigate: (path: string) => void;
+    setUser: (path: string | null) => void;
+}
 
-const handleLogout = async (navigate, setUser) => {
+
+const handleLogout = async ({navigate, setUser}: HandleLogoutProps) => {
     try {
         await logout()
         const username = getUsernameFromCookies();

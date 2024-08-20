@@ -1,12 +1,16 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FormGroup, FormControl, FormLabel, Button, Row, Col, Container } from 'react-bootstrap';
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link } from "react-router-dom";
 
-const LoginForm = ({ onSubmit }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+interface LoginFormProps {
+    onSubmit: SubmitHandler<{ email: string; password: string }>;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
+    const { register, handleSubmit, formState: { errors } } = useForm<{ email: string; password: string }>();
 
     return (
         <Container className="py-5">
@@ -57,3 +61,4 @@ const LoginForm = ({ onSubmit }) => {
 };
 
 export default LoginForm;
+
