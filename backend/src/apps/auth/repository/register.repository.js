@@ -5,18 +5,28 @@ import deleteRecord from '../../shared/queries/deleteRecord.query.js'
 
 import createUser from "../services/register/createUser.service.js";
 import createVerificationToken from "../services/register/createVerificationToken.service.js";
+import {sendErrorResponse} from "../../shared/utils/http/handleHttpStatus/sendHttpResponse.js";
+
+import HttpStatus from '../../shared/utils/http/HttpStatus.utils.ts'
+
+const messages = {
+    userAlreadyRegistered: 'User already registered',
+}
 
 const userRepository = {
-    async checkIfUserAlreadyRegistered(email) {
+    async checkIfUserAlreadyRegistered(res, email) {
         try {
             const tableName = 'users';
             const column = 'email';
             const data = email
 
             const user = await checkRecordExists(tableName, column, data);
-            return user;
+            if (user) {
+                return user;
+            }
         } catch (err) {
-            throw new Error(`Error checking if user already registered: ${err.message}`);
+            sendErrorResponse(res, HttpStatus.CONFLICT.code, HttpStatus.CONFLICT.status, messages.userAlreadyRegistered)
+            return false
         }
     },
 

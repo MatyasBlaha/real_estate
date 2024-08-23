@@ -10,15 +10,17 @@ interface ResponseOptions {
     data: any;
 }
 
-const sendSuccessResponse = (res: ExpressResponse, message: string, data: any = null): ExpressResponse => {
+
+const sendSuccessResponse = (res: ExpressResponse, code: number, status: string, message: string, data: any = null): ExpressResponse => {
     const responseOptions: ResponseOptions = {
-        code: HttpStatus.OK.code,
-        status: HttpStatus.OK.status,
+        code,
+        status,
         message,
         data
     };
     return res.status(HttpStatus.OK.code).json(createResponse(responseOptions));
 };
+
 
 const sendErrorResponse = (res: ExpressResponse, code: number, status: string, message: string, error: Error | null = null): ExpressResponse => {
     if (error) {

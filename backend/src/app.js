@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import connectDB from './database/database.js';
 import Response from './apps/shared/models/response.js';
+import  {globalRateLimiter } from "../rateLimiters/globalRateLimiter.js";
 import HttpStatusUtils from "./apps/shared/utils/http/HttpStatus.utils.js";
 import authRouter from "./apps/auth/routes/auth.route.js";
 import sessionCookieMiddleware from "../src/apps/auth/config/sessionCookie.config.js";
@@ -18,6 +19,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(globalRateLimiter)
 
 app.use(sessionCookieMiddleware);
 app.use(usernameCookieMiddleware);

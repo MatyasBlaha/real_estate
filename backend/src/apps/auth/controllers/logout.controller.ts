@@ -20,10 +20,9 @@ export const logout = async (req: CustomSessionRequest, res: ExpressResponse): P
             if (error) {
                 return sendErrorResponse(res, HttpStatus.INTERNAL_SERVER_ERROR.code, HttpStatus.INTERNAL_SERVER_ERROR.status, 'Internal Server Error', error);
             }
-            res.clearCookie(process.env.SESSION_COOKIES_NAME);
 
             await removeCookies(res)
-            return sendSuccessResponse(res, 'Logout successful', null);
+            return sendSuccessResponse(res, HttpStatus.OK.code, HttpStatus.OK.status, 'Logout successful', null);
         })
     } catch (error: Error) {
         return sendErrorResponse(res, HttpStatus.INTERNAL_SERVER_ERROR.code, HttpStatus.INTERNAL_SERVER_ERROR.status, 'Internal Server Error', error);

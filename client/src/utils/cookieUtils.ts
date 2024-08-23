@@ -1,9 +1,9 @@
 import Cookies from "js-cookie";
 import CryptoJS from "crypto-js";
 
-const decrypt = (encryptedText) => {
-    console.log("API Key:", apiKey);  // Check if this prints the correct key
+const apiKey = process.env.REACT_APP_ENCRYPTION_KEY;
 
+const decrypt = (encryptedText) => {
     const bytes = CryptoJS.AES.decrypt(encryptedText, apiKey).toString(CryptoJS.enc.Utf8);
     return bytes.toString(CryptoJS.enc.Utf8)
 }

@@ -3,7 +3,7 @@ const publicRouter = express.Router();
 
 import verifyEmailVerification from "../../controllers/verifyEmailVerification.controller.js";
 
-import { register } from '../../controllers/register.controller.js'
+import { register } from '../../controllers/register.controller.ts'
 import { login } from '../../controllers/login.controller.ts'
 
 
