@@ -3,7 +3,7 @@ import HttpStatus from "../../shared/utils/http/HttpStatus.utils.ts";
 import { messages } from "../helper/register/messages";
 
 // Response
-import {sendErrorResponse, sendSuccessResponse} from "../../shared/utils/http/handleHttpStatus/sendHttpResponse";
+import {sendErrorResponse } from "../../shared/utils/http/handleHttpStatus/sendHttpResponse";
 import { handleInternalServerError } from "../../shared/utils/http/handleHttpStatus/handleInternalServerError";
 
 // Helper functions

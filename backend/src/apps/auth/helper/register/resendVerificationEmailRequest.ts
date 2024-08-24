@@ -1,5 +1,5 @@
 import {Response as ExpressResponse} from "express";
-import {User} from "../../interfaces/User.interface";
+import {User} from "../../interfaces/UserRequestBody";
 import userRepository from "../../repository/register.repository";
 import sendVerificationEmail from "../../services/email/sendVerificationEmail.service";
 import {sendSuccessResponse} from "../../../shared/utils/http/handleHttpStatus/sendHttpResponse";

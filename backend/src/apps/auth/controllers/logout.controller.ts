@@ -1,8 +1,8 @@
+import {Request, Response as ExpressResponse} from "express";
 import HttpStatus from "../../shared/utils/http/HttpStatus.utils.js";
 import loadEnvFile from "../../../../env/config.js";
 import removeCookies from "../utils/removeCookies.utils.js";
-import { sendSuccessResponse, sendErrorResponse } from '../../shared/utils/http/handleHttpStatus/sendHttpResponse'
-import {Request, Response as ExpressResponse} from "express";
+import { sendSuccessResponse} from '../../shared/utils/http/handleHttpStatus/sendHttpResponse'
 import {handleInternalServerError} from "../../shared/utils/http/handleHttpStatus/handleInternalServerError";
 
 loadEnvFile('.env.security');
