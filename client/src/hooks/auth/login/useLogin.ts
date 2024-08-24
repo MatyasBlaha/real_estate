@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../../context/NotificationContext.tsx';
-import { handleLogin } from '../../../services/auth/login/login.helper.ts';
+import { handleLogin } from '../../../services/auth/login/handleLogin.ts';
 import {Credentials} from "../../../services/auth/login/loginTypes.ts";
 import { useUserContext } from '../../../context/useUserContext.tsx';
 

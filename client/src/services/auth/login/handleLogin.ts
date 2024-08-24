@@ -1,4 +1,4 @@
-import { login } from "./login.service.ts";
+import { login } from "./loginService.ts";
 import { getUsernameFromCookies } from "../../../utils/cookieUtils.ts";
 import { Credentials, SetUser, Navigate, SetError, LoginResult} from "./loginTypes";
 
@@ -26,7 +26,6 @@ export const handleLogin = async (
     } catch (error: any) {
         const errorMsg = error instanceof Error ? error.message : 'An error occurred while logging in';
         setError(errorMsg);
-        console.error('Login failed', error);
         return { type: 'error', message: errorMsg };
     }
 };

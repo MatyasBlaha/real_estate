@@ -11,5 +11,5 @@ export const createUserRequest = async (res: ExpressResponse, firstName: string,
     await userRepository.saveUserRoleToDatabase(user);
     const token = await userRepository.saveVerificationTokenToDatabase(user);
     await sendVerificationEmail(email, token);
-    return sendSuccessResponse(res, HttpStatus.CREATED.code, HttpStatus.CREATED.status, messages.userCreated, user);
+    return sendSuccessResponse(res, HttpStatus.OK.code, HttpStatus.OK.status, messages.userCreated, user);
 };

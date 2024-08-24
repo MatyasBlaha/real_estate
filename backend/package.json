@@ -7,7 +7,6 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=dev tsx watch src/server.ts",
     "prod": "cross-env NODE_ENV=prod tsx src/server.ts",
-    "test": "cross-env NODE_ENV=test jest --forceExit"
   },
   "keywords": [
     "nodejs",

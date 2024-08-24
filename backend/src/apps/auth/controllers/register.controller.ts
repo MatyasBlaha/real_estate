@@ -3,7 +3,7 @@ import HttpStatus from "../../shared/utils/http/HttpStatus.utils.ts";
 import { messages } from "../helper/register/messages";
 
 // Response
-import { sendSuccessResponse } from "../../shared/utils/http/handleHttpStatus/sendHttpResponse";
+import {sendErrorResponse, sendSuccessResponse} from "../../shared/utils/http/handleHttpStatus/sendHttpResponse";
 import { handleInternalServerError } from "../../shared/utils/http/handleHttpStatus/handleInternalServerError";
 
 // Helper functions
@@ -30,7 +30,7 @@ export const register = async (req: Request<{}, {}, RegisterRequestBody>, res: E
         // If user already exists, send success response if verified or resend verification email if not
         if (existingUser) {
             if (existingUser.verified) {
-                return sendSuccessResponse(res, HttpStatus.OK.code, HttpStatus.OK.status, messages.userExistsLogin);
+                return sendErrorResponse(res, HttpStatus.CONFLICT.code, HttpStatus.CONFLICT.status, messages.userExistsLogin);
             } else {
                 return await resendVerificationEmailRequest(res, existingUser);
             }

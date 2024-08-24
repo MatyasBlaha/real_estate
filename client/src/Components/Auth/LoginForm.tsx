@@ -5,12 +5,17 @@ import { FormGroup, FormControl, FormLabel, Button, Row, Col, Container } from '
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link } from "react-router-dom";
 
+
+interface LoginFormData {
+    email: string;
+    password: string;
+}
 interface LoginFormProps {
-    onSubmit: SubmitHandler<{ email: string; password: string }>;
+    onSubmit: SubmitHandler<LoginFormData>;
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm<{ email: string; password: string }>();
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
 
     return (
         <Container className="py-5">

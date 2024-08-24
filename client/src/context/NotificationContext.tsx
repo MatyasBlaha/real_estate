@@ -1,15 +1,20 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast, TypeOptions } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+interface NotificationMessage {
+    msg: string;
+    type: TypeOptions;
+}
 
-const NotificationContext = createContext();
+const NotificationContext = createContext<(msg: string, type?: TypeOptions) => void>(() => {});
 
 export const useNotification = () => useContext(NotificationContext);
 
-export const NotificationProvider = ({ children }) => {
-    const [message, setMessage] = useState(null);
+export const NotificationProvider: React.FC = ({ children }) => {
+    const [message, setMessage] = useState<NotificationMessage | null>(null);
 
-    const notify = (msg, type = 'success') => {
+    const notify = (msg: string, type: TypeOptions = 'success') => {
         setMessage({ msg, type });
     };
 

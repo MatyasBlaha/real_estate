@@ -1,12 +1,22 @@
-import {useForm} from "react-hook-form";
-import {Container, Button, FormControl, FormGroup, FormLabel, Row, Col} from "react-bootstrap";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { Container, Button, FormControl, FormGroup, FormLabel, Row, Col } from "react-bootstrap";
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
-const RegisterForm = ({onSubmit}) => {
+interface RegistrationFormData {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+}
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+interface RegistrationFormProps {
+    onSubmit: SubmitHandler<RegistrationFormData>;
+}
+
+const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSubmit }) => {
+    const { register, handleSubmit, formState: { errors } } = useForm<RegistrationFormData>();
 
     return (
         <Container className="py-5">
@@ -17,27 +27,24 @@ const RegisterForm = ({onSubmit}) => {
                             onSubmit={handleSubmit(onSubmit)}
                             className="flex flex-1 flex-col justify-evenly"
                         >
-
                             <FormGroup>
                                 <FormLabel>First name</FormLabel>
                                 <FormControl
                                     type="text"
-                                    placeholder="first Name"
-                                    {...register('firstName', {required: true})}
-                                >
-                                    {errors.email && <div style={{color: 'red'}}>{errors.email.message}</div>}
-                                </FormControl>
+                                    placeholder="First Name"
+                                    {...register('firstName', { required: true })}
+                                />
+                                {errors.firstName && <div style={{ color: 'red' }}>First name is required</div>}
                             </FormGroup>
 
                             <FormGroup>
                                 <FormLabel>Last name</FormLabel>
                                 <FormControl
                                     type="text"
-                                    placeholder="last Name"
-                                    {...register('lastName', {required: true})}
-                                >
-                                    {errors.lastName && <div style={{color: 'red'}}>{errors.lastName.message}</div>}
-                                </FormControl>
+                                    placeholder="Last Name"
+                                    {...register('lastName', { required: true })}
+                                />
+                                {errors.lastName && <div style={{ color: 'red' }}>Last name is required</div>}
                             </FormGroup>
 
                             <FormGroup>
@@ -45,10 +52,9 @@ const RegisterForm = ({onSubmit}) => {
                                 <FormControl
                                     type="email"
                                     placeholder="Enter email"
-                                    {...register('email', {required: true})}
-                                >
-                                    {errors.email && <div style={{color: 'red'}}>{errors.email.message}</div>}
-                                </FormControl>
+                                    {...register('email', { required: true })}
+                                />
+                                {errors.email && <div style={{ color: 'red' }}>Email is required</div>}
                             </FormGroup>
 
                             <FormGroup>
@@ -56,15 +62,14 @@ const RegisterForm = ({onSubmit}) => {
                                 <FormControl
                                     type="password"
                                     placeholder="Enter password"
-                                    {...register('password', {required: true})}
-                                >
-                                    {errors.password && <div style={{color: 'red'}}>{errors.password.message}</div>}
-                                </FormControl>
+                                    {...register('password', { required: true })}
+                                />
+                                {errors.password && <div style={{ color: 'red' }}>Password is required</div>}
                             </FormGroup>
 
                             <Button
                                 variant="primary"
-                                type='submit'
+                                type="submit"
                                 className="mt-3"
                             >
                                 <span>
@@ -80,9 +85,9 @@ const RegisterForm = ({onSubmit}) => {
                         <p>Sign up now to create your account.</p>
                         <NavDropdown.Item as={Link} to='/login'>
                             <Button variant="primary">
-                            <span>
-                                Login
-                            </span>
+                                <span>
+                                    Login
+                                </span>
                             </Button>
                         </NavDropdown.Item>
                     </div>
@@ -90,6 +95,6 @@ const RegisterForm = ({onSubmit}) => {
             </Row>
         </Container>
     );
-}
+};
 
-export default RegisterForm;
+export default RegistrationForm;
