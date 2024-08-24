@@ -1,11 +1,9 @@
 import { register } from './registerService.ts';
-import { Credentials, SetError } from "./registerTypes";
+import {Credentials, RegisterResult, SetError} from "./registerTypes";
 
-export const handleRegistration = async (credentials: Credentials, setError: SetError) => {
+export const handleRegistration = async (credentials: Credentials, setError: SetError): Promise<RegisterResult> => {
     try {
         const result = await register(credentials);
-
-        console.log(result.statusCode)
 
         if(result.statusCode == 409) {
             return { type: 'warning', message: result.message}

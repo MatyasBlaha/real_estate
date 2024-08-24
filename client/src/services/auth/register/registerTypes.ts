@@ -8,3 +8,8 @@ export interface Credentials {
 }
 
 export type SetError = (err: string) => void;
+
+export type RegisterResult = {
+    type: 'success' | 'error' | 'warning';
+    message: string;
+};

@@ -5,7 +5,7 @@ const NoMatch = lazy(() => import('./pages/NoMatch'));
 const Home = lazy(() => import('./pages/Home'));
 const Login = lazy(() => import('./pages/Login.tsx'));
 const Register = lazy(() => import('./pages/Register.tsx'));
-const VerifyEmail = lazy(() => import('./pages/EmailVerification'));
+const VerifyEmail = lazy(() => import('./pages/EmailVerification.tsx'));
 const Profile = lazy(() => import('./pages/Profile'));
 
 
