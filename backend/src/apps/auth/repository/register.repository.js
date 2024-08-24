@@ -1,7 +1,7 @@
 // register.repository.js
 import checkRecordExists from "../../shared/queries/checkRecordExists.query.js";
 import insertRecord from "../../shared/queries/insertRecord.query.js";
-import deleteRecord from '../../shared/queries/deleteRecord.query.js'
+import deleteExpiredTokenRecord from "../queries/register/deleteExpiredTokenRecord.js";
 
 import createUser from "../services/register/createUser.service.js";
 import createVerificationToken from "../services/register/createVerificationToken.service.js";
@@ -86,7 +86,7 @@ export const removeExpiredToken = async (userId) => {
         const data = userId;
         const time = new Date();
 
-        await deleteRecord(tableName, data, time);
+        await deleteExpiredTokenRecord(tableName, data, time);
     } catch (err) {
         throw new Error(`Error removing expired token: ${err.message}`);
 
