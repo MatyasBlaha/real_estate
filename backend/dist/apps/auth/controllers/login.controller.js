@@ -17,16 +17,16 @@ const response_js_1 = __importDefault(require("../../shared/models/response.js")
 const HttpStatus_utils_js_1 = __importDefault(require("../../shared/utils/HttpStatus.utils.ts"));
 const logger_js_1 = __importDefault(require("../../shared/log/logger.js"));
 const response_utils_js_1 = require("../../shared/utils/response.utils.ts");
-const login_repository_js_1 = require("../repository/login.repository.js");
-const validateLoginInput_service_js_1 = __importDefault(require("../services/login/validateLoginInput.service.ts"));
-const verificationPassword_service_js_1 = __importDefault(require("../services/login/verificationPassword.service.ts"));
+const login_repository_js_1 = require("../repository/register.repository.js");
+const validateLoginInput_service_js_1 = __importDefault(require("../services/register/validateLoginInput.service.ts"));
+const verificationPassword_service_js_1 = __importDefault(require("../services/register/verificationPassword.service.ts"));
 const cookie_utils_js_1 = require("../utils/cookie.utils.js");
 const register_repository_js_1 = __importDefault(require("../repository/register.repository.js"));
 const sendVerificationEmail_service_js_1 = __importDefault(require("../services/email/sendVerificationEmail.service.js"));
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, password } = req.body;
-        // Validate login input.
+        // Validate register input.
         const validationLoginResult = (0, validateLoginInput_service_js_1.default)(email, password);
         if (validationLoginResult.error) {
             return res.status(validationLoginResult.error.code).json((0, response_utils_js_1.createResponse)(validationLoginResult.error.code, validationLoginResult.error.status, validationLoginResult.error.message, null));
@@ -47,7 +47,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (typeof verifiedPassword === 'object' && verifiedPassword.error) {
             return res.status(verifiedPassword.error.code).json((0, response_utils_js_1.createResponse)(verifiedPassword.error.code, verifiedPassword.error.status, verifiedPassword.error.message, null));
         }
-        //Update last login time to user.
+        //Update last register time to user.
         yield (0, login_repository_js_1.updateLastLoginTimeStamp)(user.id);
         // Create session and username token.
         yield (0, cookie_utils_js_1.setSessionAndCookies)(req, res, user);

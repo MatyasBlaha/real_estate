@@ -1,4 +1,4 @@
-// login.controller.ts
+// register.controller.ts
 
 import { Request, Response as ExpressResponse } from 'express';
 import HttpStatus from "../../shared/utils/http/HttpStatus.utils";
@@ -51,7 +51,7 @@ export const login = async (req: Request<{}, {}, LoginRequestBody>, res: Express
     }
 };
 
-// Helper function - validating login input
+// Helper function - validating register input
 const validateLoginRequest = async (res: ExpressResponse, email: string, password: string): Promise<boolean> => {
     const validationLoginResult = await validateLoginInput(email, password);
     if (!validationLoginResult.isValid) {
@@ -89,7 +89,7 @@ const checkPassword = async (res: ExpressResponse, inputPassword: string, stored
     return Promise.resolve(true);
 };
 
-// Helper function - finalize login process
+// Helper function - finalize register process
 const finalizeLogin = async (res: ExpressResponse, req: Request, user: any) => {
     await updateLastLoginTimeStamp(user.id);
     await setSessionAndCookies(req, res, user);

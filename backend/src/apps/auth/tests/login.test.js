@@ -29,7 +29,7 @@ app.use(session({
 
 app.post('/api/user/public/login', login);
 
-describe('POST /api/user/public/login', () => {
+describe('POST /api/user/public/register', () => {
     loadEnvFile('.env.tests');
 
     const password = process.env.TEST_LOGIN_PASSWORD;
