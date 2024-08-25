@@ -23,7 +23,7 @@ export const createProfile = async (req: SessionRequest, res: ExpressResponse): 
         // Save profile to the database
         const profile = await profileRepository.saveProfileToDatabase(res, userId, firstName, lastName, description, mobile_phone);
 
-        return sendSuccessResponse(res, HttpStatus.OK.code, HttpStatus.OK.status, 'Profile created successfully', profile);
+        return sendSuccessResponse(res, HttpStatus.OK.code, HttpStatus.OK.status, 'ProfileDashboard created successfully', profile);
     } catch (error) {
         return handleInternalServerError(res, error);
     }

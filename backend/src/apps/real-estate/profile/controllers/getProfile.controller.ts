@@ -3,6 +3,7 @@ import HttpStatus from '../../../shared/utils/http/HttpStatus.utils'
 
 import {handleInternalServerError} from "../../../shared/utils/http/handleHttpStatus/handleInternalServerError";
 import {sendSuccessResponse} from "../../../shared/utils/http/handleHttpStatus/sendHttpResponse";
+import encrypt from "../../../shared/utils/encryptText.utils";
 
 const messages = {
     getProfileSuccess: 'profile show'
@@ -10,10 +11,20 @@ const messages = {
 
 
 export const getProfile = async (req: Request, res: ExpressResponse): Promise<ExpressResponse> => {
-
     try {
         const profile = res.locals.profile
-        return sendSuccessResponse(res, HttpStatus.OK.code, HttpStatus.OK.status, messages.getProfileSuccess, profile)
+
+        const hashedProfileId = await encrypt(profile.id);
+
+        const responseData = {
+            id: hashedProfileId,
+            firstName: profile.first_name,
+            lastName: profile.last_name,
+            description: profile.description,
+            mobilePhone: profile.mobile_phone
+        }
+
+        return sendSuccessResponse(res, HttpStatus.OK.code, HttpStatus.OK.status, messages.getProfileSuccess, responseData)
     } catch (error: any) {
         return handleInternalServerError(res, error)
     }

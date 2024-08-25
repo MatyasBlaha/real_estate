@@ -1,17 +1,26 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+import {handleProfileInformation} from "../services/profile/getProfile/handleProfileInformation.ts";
+import {CreateProfileForm} from "../Components/profile/createProfileForm/CreateProfileForm.tsx";
+import { ProfileDashboard } from '../Components/profile/ProfileDashboard.tsx'
 
 const Profile = () => {
+    const [profileData, setProfileData] = useState(null);
+
 
     useEffect(() => {
-        // console.log('opened')
+        handleProfileInformation().then((data) => {
+            setProfileData(data);
+        });
     }, []);
 
+    if (!profileData) {
+        return (
+            <CreateProfileForm />
+        )
+    }
+
     return(
-        <>
-            <h2>
-                Profile
-            </h2>
-        </>
+        <ProfileDashboard />
     )
 }
 

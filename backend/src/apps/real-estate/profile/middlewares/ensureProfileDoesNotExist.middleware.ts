@@ -16,7 +16,7 @@ export const ensureProfileDoesNotExistMiddleware = async (req: SessionRequest, r
         const profileExist = await profileRepository.checkProfileExists(res, userId)
 
         if(profileExist) {
-            return sendErrorResponse(res, HttpStatus.CONFLICT.code, HttpStatus.CONFLICT.status, 'Profile already exists');
+            return sendErrorResponse(res, HttpStatus.CONFLICT.code, HttpStatus.CONFLICT.status, 'ProfileDashboard already exists');
         }
 
         next()

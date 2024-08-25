@@ -1,4 +1,4 @@
-import encrypt from "./encryptText.utils.js";
+import encrypt from "../../shared/utils/encryptText.utils.js";
 
 export const cookieOptions = {
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24),

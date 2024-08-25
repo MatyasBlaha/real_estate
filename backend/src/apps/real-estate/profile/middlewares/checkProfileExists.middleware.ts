@@ -2,10 +2,10 @@ import {NextFunction, Request, Response} from "express";
 import HttpStatus from '../../../shared/utils/http/HttpStatus.utils'
 import {handleInternalServerError} from "../../../shared/utils/http/handleHttpStatus/handleInternalServerError";
 import {profileRepository} from "../repository/profile.repository";
-import {sendErrorResponse} from "../../../shared/utils/http/handleHttpStatus/sendHttpResponse";
+import {sendErrorResponse, sendSuccessResponse} from "../../../shared/utils/http/handleHttpStatus/sendHttpResponse";
 
 const messages = {
-    profileNotFound: "Profile not found",
+    profileNotFound: "Profile Dashboard not found",
 }
 
 interface SessionRequest extends Request {
@@ -28,7 +28,7 @@ export const checkProfileExistsMiddleware = async (req: SessionRequest, res: Res
         }
 
         if(!profile) {
-            return sendErrorResponse(res, HttpStatus.NOT_FOUND.code, HttpStatus.NOT_FOUND.status, messages.profileNotFound)
+            return sendSuccessResponse(res, HttpStatus.NOT_FOUND.code, HttpStatus.NOT_FOUND.status, messages.profileNotFound)
         }
 
 
