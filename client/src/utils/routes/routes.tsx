@@ -1,12 +1,13 @@
 import React, { lazy, Suspense} from 'react';
 import { Routes, Route } from 'react-router-dom';
+import ProtectedRoute from "./protectedRoutes.tsx";
 
-const NoMatch = lazy(() => import('./pages/NoMatch'));
-const Home = lazy(() => import('./pages/Home'));
-const Login = lazy(() => import('./pages/Login.tsx'));
-const Register = lazy(() => import('./pages/Register.tsx'));
-const VerifyEmail = lazy(() => import('./pages/EmailVerification.tsx'));
-const Profile = lazy(() => import('./pages/Profile'));
+const NoMatch = lazy(() => import('../../pages/NoMatch'));
+const Home = lazy(() => import('../../pages/Home'));
+const Login = lazy(() => import('../../pages/Login.tsx'));
+const Register = lazy(() => import('../../pages/Register.tsx'));
+const VerifyEmail = lazy(() => import('../../pages/EmailVerification.tsx'));
+const Profile = lazy(() => import('../../pages/Profile.tsx'));
 
 
 
@@ -19,7 +20,10 @@ const AppRoutes = () => {
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/verify/email/:token' element={<VerifyEmail />} />
-                <Route path='/profile' element={<Profile />} />
+                <Route
+                    path='/profile'
+                    element={<ProtectedRoute element={<Profile />} />}
+                />
             </Routes>
         </Suspense>
     )

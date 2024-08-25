@@ -12,6 +12,7 @@ import {getUsernameFromCookies} from "../../utils/cookieUtils.ts";
 import  { useLogout } from "../../hooks/auth/logout/useLogout.ts";
 
 const HeaderNavbar = () => {
+
     const { user, setUser} = useUserContext();
     const location = useLocation();
 

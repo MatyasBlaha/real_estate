@@ -1,19 +1,13 @@
-import AppRoutes from './routes.tsx';
+import React from 'react';
 import HeaderNavbar from './Components/Navbar/Navbar.tsx';
-import { UserContextProvider } from "./context/useUserContext.tsx";
-
-import { getUsernameFromCookies } from "./utils/cookieUtils.ts";
+import AppRoutes from "./utils/routes/routes.tsx";
 
 function App() {
-    const initialUser: string | null = getUsernameFromCookies() || null;
-
     return (
-                <UserContextProvider initialUser={initialUser}>
-                    <div className="App">
-                        <HeaderNavbar/>
-                        <AppRoutes/>
-                    </div>
-                </UserContextProvider>
+        <>
+            <HeaderNavbar />
+            <AppRoutes/>
+        </>
     );
 }
 

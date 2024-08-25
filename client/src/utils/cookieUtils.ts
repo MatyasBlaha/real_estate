@@ -8,12 +8,12 @@ const decrypt = (encryptedText) => {
     return bytes.toString(CryptoJS.enc.Utf8)
 }
 
-const getUsernameFromCookies = () => {
+const getUsernameFromCookies = (): string | undefined => {
     const encryptedUsername = Cookies.get('username');
     if (encryptedUsername) {
         return decrypt(encryptedUsername);
     }
-    return null;
-}
+    return undefined;
+};
 
-export { getUsernameFromCookies }
+export { getUsernameFromCookies}

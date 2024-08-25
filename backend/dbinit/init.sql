@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS sessions;
 DROP TABLE IF EXISTS user_verification_tokens;
 DROP TABLE IF EXISTS user_avatar;
 DROP TABLE IF EXISTS user_verifications;
-DROP TABLE IF EXISTS user_profiles;
+DROP TABLE IF EXISTS user_profile;
 
 CREATE TABLE IF NOT EXISTS roles (
     id          INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -51,13 +51,16 @@ CREATE TABLE IF NOT EXISTS sessions (
 );
 
 
-CREATE TABLE IF NOT EXISTS user_profiles (
+CREATE TABLE IF NOT EXISTS user_profile (
     id          VARCHAR(255) UNIQUE NOT NULL,
     user_id     VARCHAR(255) NOT NULL,
     first_name  VARCHAR(255) NOT NULL,
     last_name   VARCHAR(255) NOT NULL,
+    mobile_phone VARCHAR(20) NOT NULL,
     avatar_url  VARCHAR(512),
     description TEXT,
+    created_at  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 

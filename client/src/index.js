@@ -1,20 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from "react-router-dom";
 import App from './App.tsx';
-import {BrowserRouter} from 'react-router-dom';
-import {NotificationProvider} from "./context/NotificationContext.tsx";
-
-
-//Import global styles
-import './styles/base/typography.css'
-import './styles/base/reset.css'
+import { NotificationProvider } from "./context/NotificationContext.tsx";
+import { UserContextProvider } from "./context/useUserContext.tsx";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
     <BrowserRouter>
-        <NotificationProvider>
-            <App />
-        </NotificationProvider>
-    </BrowserRouter>
+    <NotificationProvider>
+        <UserContextProvider>
+                <App />
+        </UserContextProvider>
+    </NotificationProvider>
+</BrowserRouter>
 );
-

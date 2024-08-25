@@ -1,4 +1,11 @@
+import {useEffect} from "react";
+
 const Profile = () => {
+
+    useEffect(() => {
+        // console.log('opened')
+    }, []);
+
     return(
         <>
             <h2>

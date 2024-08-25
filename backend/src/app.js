@@ -7,6 +7,7 @@ import HttpStatusUtils from "./apps/shared/utils/http/HttpStatus.utils.js";
 import authRouter from "./apps/auth/routes/auth.route.js";
 import sessionCookieMiddleware from "../src/apps/auth/config/sessionCookie.config.js";
 import usernameCookieMiddleware from "../src/apps/auth/config/usernameCookies.config.js";
+import profileRouter from "./apps/real-estate/profile/routes/profile.route.js";
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(sessionCookieMiddleware);
 app.use(usernameCookieMiddleware);
 
 app.use('/api/user', authRouter);
+app.use('/api', profileRouter)
 
 connectDB();
 
