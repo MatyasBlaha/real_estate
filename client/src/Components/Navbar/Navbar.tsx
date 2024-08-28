@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../context/useUserContext.tsx'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -8,13 +8,15 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from "react-bootstrap/NavDropdown";
 
-import {getUsernameFromCookies} from "../../utils/cookieUtils.ts";
+import {getProfileIdFromCookies, getUsernameFromCookies} from "../../utils/cookieUtils.ts";
 import  { useLogout } from "../../hooks/auth/logout/useLogout.ts";
 
 const HeaderNavbar = () => {
 
+    const profileId = getProfileIdFromCookies()
     const { user, setUser} = useUserContext();
     const location = useLocation();
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -23,6 +25,8 @@ const HeaderNavbar = () => {
             setUser(username)
         }
     }, [setUser]);
+
+
 
     const { handleLogoutClick } = useLogout();
 
@@ -39,7 +43,7 @@ const HeaderNavbar = () => {
                     <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end'>
                         {user ? (
                             <NavDropdown title={user} id="user-dropdown" align="end">
-                                <NavDropdown.Item as={Link} to='/profile' className={isActive('/profile') ? 'active' : ''}>Profile</NavDropdown.Item>
+                                <NavDropdown.Item as={Link}  to={profileId ? `/profile/${profileId}` : '/create-profile'}    className={isActive('/profile') ? 'active' : ''}>Profile</NavDropdown.Item>
                                 <NavDropdown.Divider className="nav-dropdown-divider"/>
                                 <NavDropdown.Item as={Link} to='/create-estate' className={isActive('/create-estate') ? 'active' : ''}>Create Estate</NavDropdown.Item>
                                 <NavDropdown.Divider className="nav-dropdown-divider"/>

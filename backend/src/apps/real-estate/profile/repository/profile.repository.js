@@ -5,13 +5,27 @@ import checkRecordExists from "../../../shared/queries/checkRecordExists.query.j
 
 export const profileRepository = {
 
-    async checkProfileExists(res, userId){
+    async checkUserExists(res, userId) {
+       try {
+           const tableName = 'users';
+           const column = 'id';
+           const data = userId;
+
+           const user = await checkRecordExists(tableName, column, data)
+           return user;
+       } catch (error) {
+            return handleInternalServerError(res, error)
+       }
+    },
+
+    async checkProfileExists(res, profileId){
         try {
-            const data = userId
             const tableName = 'user_profile';
-            const column = 'user_id'
+            const column = 'id'
+            const data = profileId
 
             const profile = await checkRecordExists(tableName, column, data)
+            console.log(profile)
 
             return profile;
         } catch (error) {
@@ -19,10 +33,29 @@ export const profileRepository = {
         }
     },
 
-
-    async saveProfileToDatabase(res, userId, firstName, lastName, descriptionText, mobilePhone){
+    async checkProfileExistsWithUserId(res, userId) {
         try {
-            const profile = await createProfile(userId, firstName, lastName, descriptionText, mobilePhone)
+            const tableName = 'user_profile';
+            const column = 'user_id'
+            const data = userId
+
+            const profile = await checkRecordExists(tableName, column, data)
+
+            if(profile){
+                return profile
+            } else {
+                return null
+            }
+
+        } catch (error) {
+            return handleInternalServerError(res, error)
+        }
+    },
+
+
+    async saveProfileToDatabase(res, userId, firstName, lastName, descriptionText){
+        try {
+            const profile = await createProfile(userId, firstName, lastName, descriptionText)
 
             const tableName = 'user_profile'
 

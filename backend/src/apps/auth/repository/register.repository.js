@@ -30,9 +30,9 @@ const userRepository = {
         }
     },
 
-    async saveUserToDatabase(firstName, lastName, email, password) {
+    async saveUserToDatabase(firstName, lastName, country, phoneNumber, email, password) {
         try {
-            const user = await createUser(firstName, lastName, email, password);
+            const user = await createUser(firstName, lastName, country, phoneNumber, email, password);
             const tableName = 'users';
             const data = user;
 

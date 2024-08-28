@@ -18,7 +18,7 @@ export const useLogin = () => {
 
             if (result.type === 'success') {
                 notify(result.message, 'success');
-                navigate('/home');
+                navigate('/');
             } else {
                 notify(result.message, 'error');
             }

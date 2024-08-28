@@ -16,4 +16,12 @@ const getUsernameFromCookies = (): string | undefined => {
     return undefined;
 };
 
-export { getUsernameFromCookies}
+const getProfileIdFromCookies = (): string | undefined => {
+    const encryptedProfileId = Cookies.get('profileId');
+    if (encryptedProfileId) {
+        return encryptedProfileId
+    }
+    return undefined;
+};
+
+export { getUsernameFromCookies, getProfileIdFromCookies}

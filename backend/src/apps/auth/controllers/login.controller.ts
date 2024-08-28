@@ -14,6 +14,7 @@ import { finalizeLoginRequest } from "../helper/login/finalizeLoginRequest";
 
 // Interface
 import { LoginRequestBody } from "../interfaces/LoginRequestBody";
+import {profileRepository} from "../../real-estate/profile/repository/profile.repository";
 
 
 export const login = async (req: Request<{}, {}, LoginRequestBody>, res: ExpressResponse): Promise<ExpressResponse> => {
@@ -29,11 +30,13 @@ export const login = async (req: Request<{}, {}, LoginRequestBody>, res: Express
         const user = await fetchAndVerifyUserRequest(res, email);
         if (!user) return;
 
+        const profile = await profileRepository.checkProfileExistsWithUserId(res, user.id)
+
         // Checking if provided password matches stored password
         if (!await checkPasswordRequest(res, password, user.password)) return;
 
         // Finalizing login by setting session and cookies
-        await finalizeLoginRequest(res, req, user);
+        await finalizeLoginRequest(res, req, user, profile);
 
         // Sending success response with JWT token and session data
         return sendSuccessResponse(res, HttpStatus.OK.code, HttpStatus.OK.status, messages.loginSuccessful);

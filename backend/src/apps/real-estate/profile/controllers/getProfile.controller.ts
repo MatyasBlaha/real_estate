@@ -20,8 +20,7 @@ export const getProfile = async (req: Request, res: ExpressResponse): Promise<Ex
             id: hashedProfileId,
             firstName: profile.first_name,
             lastName: profile.last_name,
-            description: profile.description,
-            mobilePhone: profile.mobile_phone
+            description: profile.description
         }
 
         return sendSuccessResponse(res, HttpStatus.OK.code, HttpStatus.OK.status, messages.getProfileSuccess, responseData)

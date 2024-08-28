@@ -17,9 +17,9 @@ import { RegisterRequestBody } from "../interfaces/RegisterRequestBody"
 
 export const register = async (req: Request<{}, {}, RegisterRequestBody>, res: ExpressResponse): Promise<ExpressResponse> => {
     try {
-
+        console.log(req.body)
         // Extracting data from request body
-        const { firstName, lastName, email, password } = req.body;
+        const { firstName, lastName, country, phoneNumber, email, password } = req.body;
 
         // Validating request body data
         if (!await validateRegisterRequest(res, firstName, lastName, email, password)) return;
@@ -37,7 +37,7 @@ export const register = async (req: Request<{}, {}, RegisterRequestBody>, res: E
         }
 
         // If user does not exist, create a new user in the database and send verification email
-        return await createUserRequest(res, firstName, lastName, email, password);
+        return await createUserRequest(res, firstName, lastName, country, phoneNumber, email, password);
 
     } catch (error: any) {
         // Handle unexpected error

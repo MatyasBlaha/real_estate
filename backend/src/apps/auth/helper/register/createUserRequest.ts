@@ -6,8 +6,8 @@ import HttpStatus from "../../../shared/utils/http/HttpStatus.utils";
 
 import { messages } from "./messages";
 
-export const createUserRequest = async (res: ExpressResponse, firstName: string, lastName: string, email: string, password: string): Promise<ExpressResponse> => {
-    const user = await userRepository.saveUserToDatabase(firstName, lastName, email, password);
+export const createUserRequest = async (res: ExpressResponse, firstName: string, lastName: string, country: string, phoneNumber: string, email: string, password: string): Promise<ExpressResponse> => {
+    const user = await userRepository.saveUserToDatabase(firstName, lastName, country, phoneNumber, email, password);
     await userRepository.saveUserRoleToDatabase(user);
     const token = await userRepository.saveVerificationTokenToDatabase(user);
     await sendVerificationEmail(email, token);

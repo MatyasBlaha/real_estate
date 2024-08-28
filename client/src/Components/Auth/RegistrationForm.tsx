@@ -1,14 +1,30 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Container, Button, FormControl, FormGroup, FormLabel, Row, Col } from "react-bootstrap";
-import React from "react";
+import React, { useState } from "react";
+import { Container, Button, FormControl, FormGroup, InputGroup, FormLabel, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import NavDropdown from "react-bootstrap/NavDropdown";
+
+
+const countryOptions = [
+    { value: 'czechia', label: '🇨🇿 Czechia', code: '+420', maxLength: 9 },
+    { value: 'poland', label: '🇵🇱 Poland', code: '+48', maxLength: 9 },
+    { value: 'slovakia', label: '🇸🇰 Slovakia', code: '+421', maxLength: 9 },
+    { value: 'germany', label: '🇩🇪 Germany', code: '+49', maxLength: 11 },
+    { value: 'austria', label: '🇦🇹 Austria', code: '+43', maxLength: 11 },
+    { value: 'us', label: '🇺🇸 US', code: '+1', maxLength: 7 },
+];
+
+const numberPlaceHolder = {
+
+}
 
 interface RegistrationFormData {
     firstName: string;
     lastName: string;
+    country: string;
     email: string;
     password: string;
+    phoneNumber: number;
 }
 
 interface RegistrationFormProps {
@@ -16,7 +32,28 @@ interface RegistrationFormProps {
 }
 
 const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSubmit }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm<RegistrationFormData>();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<RegistrationFormData>();
+
+    const [phoneCode, setPhoneCode] = useState('')
+    const [maxLength, setMaxLength] = useState(0)
+    const [placeholder, setPlaceholder] = useState<string>('')
+
+    const selectedCountry = watch('country')
+
+    React.useEffect(() => {
+        const country = countryOptions.find(option => option.value === selectedCountry);
+        if (country) {
+            setPhoneCode(country.code);
+            setMaxLength(country.maxLength);
+            setPlaceholder(`eg. ${'12345678901234'.slice(0, country.maxLength)}`);
+        } else {
+            setPhoneCode('');
+            setMaxLength(0);
+            setPlaceholder(`Phone Number`);
+        }
+    }, [selectedCountry]);
+
+
 
     return (
         <Container className="py-5">
@@ -46,6 +83,37 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSubmit }) => {
                                 />
                                 {errors.lastName && <div style={{ color: 'red' }}>Last name is required</div>}
                             </FormGroup>
+
+                            <FormGroup>
+                                <FormLabel>Country</FormLabel>
+                                <FormControl
+                                    as="select"
+                                    {...register('country', { required: true })}
+                                >
+                                    <option value="">Select a country</option>
+                                    {countryOptions.map(option => (
+                                        <option key={option.value} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </FormControl>
+                                {errors.country && <div style={{ color: 'red' }}>Country is required</div>}
+                            </FormGroup>
+
+                            <FormGroup>
+                                <FormLabel>Phone Number</FormLabel>
+                                <InputGroup>
+                                    <InputGroup.Text>{phoneCode}</InputGroup.Text>
+                                    <FormControl
+                                        type="tel"
+                                        placeholder={placeholder}
+                                        maxLength={maxLength}
+                                        {...register('phoneNumber', { required: true })}
+                                    />
+                                </InputGroup>
+                                {errors.phoneNumber && <div style={{ color: 'red' }}>Phone number is required</div>}
+                            </FormGroup>
+
 
                             <FormGroup>
                                 <FormLabel>Email address</FormLabel>

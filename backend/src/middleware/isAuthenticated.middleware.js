@@ -2,6 +2,7 @@ import HttpStatus from '../apps/shared/utils/http/HttpStatus.utils.ts';
 import {sendErrorResponse} from "../apps/shared/utils/http/handleHttpStatus/sendHttpResponse.ts";
 
 const isAuthenticated = (req, res, next) => {
+    console.log(req.session.userId)
     if(req.session && req.session.userId) {
         return next();
     } else {

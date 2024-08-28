@@ -9,7 +9,7 @@ import {ensureProfileDoesNotExistMiddleware} from "../../middlewares/ensureProfi
 
 
 
-profileProtectedRouter.get('/getProfile', isAuthenticated, checkProfileExistsMiddleware, getProfile)
+profileProtectedRouter.get('/check/:profileId', checkProfileExistsMiddleware, getProfile)
 profileProtectedRouter.post('/createProfile', isAuthenticated, ensureProfileDoesNotExistMiddleware, createProfile)
 
 

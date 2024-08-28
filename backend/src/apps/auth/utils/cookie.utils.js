@@ -5,13 +5,25 @@ export const cookieOptions = {
     secure: false,
 };
 
-export const setSessionAndCookies = async (req, res, user) => {
+
+
+export const setSessionCookies = async (req, res) => {
+    req.session.session = 'adsf5678957dasfh';
+    res.cookie('session', req.session.session, cookieOptions);
+}
+
+export const setUserIdCookies = async (req, res, user) => {
     req.session.userId = user.id;
-    req.session.username = user.first_name;
+    res.cookie('userId', req.session.userId, cookieOptions);
+}
 
+export const setUsernameCookies = async (req, res, user) => {
+    req.session.username = user.firstName;
     const encryptedName = await encrypt(user.first_name);
-    const encryptedSessionId = await encrypt(user.id);
-
-    res.cookie('session', encryptedSessionId, cookieOptions);
     res.cookie('username', encryptedName, cookieOptions);
-};
+}
+
+export const setProfileIdCookies = async (req, res, profile) => {
+    req.session.profileId = profile.id;
+    res.cookie('profileId', req.session.profileId, cookieOptions);
+}

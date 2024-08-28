@@ -17,7 +17,7 @@ export const useLogout = () => {
 
             if (result.type === 'success') {
                 notify(result.message, 'success');
-                navigate('/home');
+                navigate('/login');
             } else {
                 notify(result.message, 'error');
             }
