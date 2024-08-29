@@ -7,6 +7,8 @@ export const profileRepository = {
 
     async checkUserExists(res, userId) {
        try {
+
+
            const tableName = 'users';
            const column = 'id';
            const data = userId;
@@ -25,7 +27,6 @@ export const profileRepository = {
             const data = profileId
 
             const profile = await checkRecordExists(tableName, column, data)
-            console.log(profile)
 
             return profile;
         } catch (error) {
@@ -53,9 +54,9 @@ export const profileRepository = {
     },
 
 
-    async saveProfileToDatabase(res, userId, firstName, lastName, descriptionText){
+    async saveProfileToDatabase(res, userId, firstName, lastName, descriptionText, avatarPath){
         try {
-            const profile = await createProfile(userId, firstName, lastName, descriptionText)
+            const profile = await createProfile(userId, firstName, lastName, descriptionText, avatarPath)
 
             const tableName = 'user_profile'
 

@@ -12,7 +12,6 @@ interface SessionRequest extends Request {
 export const ensureProfileDoesNotExistMiddleware = async (req: SessionRequest, res: Response, next: NextFunction) => {
     try {
         const userId = req.session.userId;
-        console.log(userId)
 
         const profileExist = await profileRepository.checkProfileExists(res, userId)
 

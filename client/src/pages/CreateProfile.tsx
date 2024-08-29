@@ -1,6 +1,6 @@
 import React from 'react';
 import {CreateProfileForm} from "../Components/profile/createProfileForm/CreateProfileForm.tsx";
-import {useCreateProfile} from "../hooks/profile/useCreateProfile.ts";
+import { useCreateProfile } from "../services/profile/createProfile/useCreateProfile.ts";
 import {useUserContext} from "../context/useUserContext.tsx";
 
 const CreateProfile: React.FC = () => {

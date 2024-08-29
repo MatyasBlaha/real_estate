@@ -1,4 +1,4 @@
-import axios from '../../axios.config.ts';
+import axios from '../../../config/axios.config.ts';
 import { Credentials } from "./loginTypes";
 
 export const login = async (credentials: Credentials): Promise<void> => {

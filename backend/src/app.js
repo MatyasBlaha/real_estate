@@ -2,12 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import connectDB from './database/database.js';
 import Response from './apps/shared/models/response.js';
+import path from 'path';
 import  {globalRateLimiter } from "../rateLimiters/globalRateLimiter.js";
 import HttpStatusUtils from "./apps/shared/utils/http/HttpStatus.utils.js";
 import authRouter from "./apps/auth/routes/auth.route.js";
 import sessionCookieMiddleware from "../src/apps/auth/config/sessionCookie.config.js";
 import usernameCookieMiddleware from "../src/apps/auth/config/usernameCookies.config.js";
 import profileRouter from "./apps/real-estate/profile/routes/profile.route.js";
+import {fileURLToPath} from "url";
 
 const app = express();
 
@@ -24,6 +26,12 @@ app.use(globalRateLimiter)
 
 app.use(sessionCookieMiddleware);
 app.use(usernameCookieMiddleware);
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use('/uploads', express.static(path.join(__dirname, '../uploads/profileAvatar')));
 
 app.use('/api/user', authRouter);
 app.use('/api', profileRouter)

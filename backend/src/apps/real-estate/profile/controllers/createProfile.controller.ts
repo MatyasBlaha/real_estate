@@ -26,15 +26,18 @@ export const createProfile = async (req: SessionRequest, res: ExpressResponse): 
         // Validation user was found
         await validateCreateProfileRequest(res, userId)
 
+
         // Extracting fields from req.body
         const { firstName, lastName, description } = req.body;
+        const avatar = req.file?.filename
 
+        const avatarPath = `${avatar}`
 
 
         // Save profile to the database
-        const profile = await profileRepository.saveProfileToDatabase(res, userId, firstName, lastName, description);
+        const profile = await profileRepository.saveProfileToDatabase(res, userId, firstName, lastName, description, avatarPath);
         await setProfileIdCookies(req, res, profile);
-        console.log(profile)
+        // console.log(profile)
 
         return sendSuccessResponse(res, HttpStatus.OK.code, HttpStatus.OK.status, 'ProfileDashboard created successfully', profile);
     } catch (error) {

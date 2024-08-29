@@ -1,6 +1,7 @@
 import express from 'express';
 import isAuthenticated from "../../../../../middleware/isAuthenticated.middleware.js";
 const profileProtectedRouter = express.Router();
+import upload from "../../../../shared/utils/multer.utils.js";
 
 import { createProfile } from "../../controllers/createProfile.controller.ts";
 import { getProfile} from "../../controllers/getProfile.controller.js";
@@ -10,7 +11,7 @@ import {ensureProfileDoesNotExistMiddleware} from "../../middlewares/ensureProfi
 
 
 profileProtectedRouter.get('/check/:profileId', checkProfileExistsMiddleware, getProfile)
-profileProtectedRouter.post('/createProfile', isAuthenticated, ensureProfileDoesNotExistMiddleware, createProfile)
+profileProtectedRouter.post('/createProfile', isAuthenticated, ensureProfileDoesNotExistMiddleware, upload.single('avatar'), createProfile)
 
 
 export default profileProtectedRouter;

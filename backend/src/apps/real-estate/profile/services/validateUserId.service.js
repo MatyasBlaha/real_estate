@@ -8,7 +8,7 @@ const messages = {
 
 
 export const validateUserId = async (res, userId) => {
-    const user = await profileRepository.checkUserExists(userId);
+    const user = await profileRepository.checkUserExists(res, userId);
 
     if(!user) {
         return sendErrorResponse(res, HttpStatus.UNAUTHORIZED.code, HttpStatus.UNAUTHORIZED.status, messages.userNotFound)

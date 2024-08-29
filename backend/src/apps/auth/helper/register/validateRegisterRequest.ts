@@ -6,7 +6,6 @@ export const validateRegisterRequest = async (res: ExpressResponse, firstName: s
     const validationRegisterResult = validateRegisterInput(firstName, lastName, email, password);
     if (validationRegisterResult.error) {
         sendErrorResponse(res, validationRegisterResult.error.code, validationRegisterResult.error.status, validationRegisterResult.error.message);
-        return false;
     }
     return true;
 };

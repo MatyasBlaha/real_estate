@@ -1,19 +1,21 @@
-import {ProfileHeading} from "./Heading/ProfileHeading.tsx";
-
-
+import React from 'react';
+import { baseUrl } from '../../../config/baseUrl.config.ts'
 export const ProfileDashboard = ({profile}) => {
+    if (!profile) {
+        return <div>No profile data available.</div>;
+    }
 
-    const firstName = profile.firstName;
-    const lastName = profile.lastName
-    const description = profile.description;
-    const mobilePhone = profile.mobilePhone;
+    // console.log(baseUrl.API_BASE_URL)
 
     return (
         <>
-            <ProfileHeading firstName={firstName} />
-            <p>{lastName}</p>
-            <p>{description}</p>
-            <p>{mobilePhone}</p>
+            <h1>{profile.firstName} {profile.lastName}'s Profile</h1>
+            <p>Description: {profile.description}</p>
+            <img
+                style={{height: '100px'}}
+                src={`${baseUrl.API_BASE_URL}/uploads/${profile.avatarPath}`}
+                alt={`${profile.firstName}'s avatar`}
+            />
         </>
-    )
+    );
 }
