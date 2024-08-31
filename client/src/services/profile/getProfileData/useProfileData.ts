@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import {getProfileData} from '../../../api/profile/getProfileData.ts'
+import { getProfileData } from '../../../api/profile/getProfileData.ts'
 
 export const UseProfileData = () => {
     const [profileData, setProfileData] = useState(null);
+    const [loading, setLoading] = useState(true);
     const { profileId } = useParams<{ profileId: string }>();
 
     useEffect(() => {
@@ -13,11 +14,13 @@ export const UseProfileData = () => {
                 setProfileData(data);
             } catch (error) {
                 setProfileData(null);
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchProfileData();
     }, [profileId]);
 
-    return profileData;
+    return { profileData, loading };
 }

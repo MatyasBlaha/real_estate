@@ -14,10 +14,6 @@ const countryOptions = [
     { value: 'us', label: '🇺🇸 US', code: '+1', maxLength: 7 },
 ];
 
-const numberPlaceHolder = {
-
-}
-
 interface RegistrationFormData {
     firstName: string;
     lastName: string;

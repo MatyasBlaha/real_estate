@@ -4,7 +4,11 @@ import { UseProfileData } from "../services/profile/getProfileData/useProfileDat
 
 const Profile: React.FC = () => {
 
-    const profileData = UseProfileData();
+    const { profileData, loading } = UseProfileData();
+
+    if (loading) {
+        return null
+    }
 
     return(
         <ProfileDashboard profile={profileData} />

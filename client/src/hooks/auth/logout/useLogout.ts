@@ -1,10 +1,10 @@
 import { handleLogout } from "../../../services/auth/logout/logout.helper.ts";
 import { useNavigate } from "react-router-dom";
-import { useUserContext } from "../../../context/useUserContext.tsx";
+import { useUserContext } from "../../../context/global/useUserContext.tsx";
 
 import 'react-toastify/dist/ReactToastify.css';
 
-import { useNotification } from "../../../context/NotificationContext.tsx";
+import { useNotification } from "../../../context/global/NotificationContext.tsx";
 
 export const useLogout = () => {
     const { setUser } = useUserContext();

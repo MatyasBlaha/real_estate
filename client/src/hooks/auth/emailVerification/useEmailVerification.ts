@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {useNotification} from "../../../context/NotificationContext.tsx";
+import {useNotification} from "../../../context/global/NotificationContext.tsx";
 
 import { handleEmailVerification } from "../../../services/auth/emailVerification/handleEmailVerification.ts";
 

@@ -1,18 +1,27 @@
 CREATE DATABASE IF NOT EXISTS realEstate;
 USE realEstate;
 
-DROP TABLE IF EXISTS messages;
-DROP TABLE IF EXISTS user_estates;
-DROP TABLE IF EXISTS estate_images;
-DROP TABLE IF EXISTS estates;
+    -- PROPERTY
+DROP TABLE IF EXISTS property;
+DROP TABLE IF EXISTS property_features;
+DROP TABLE IF EXISTS property_location;
+DROP TABLE IF EXISTS property_images;
+
+    -- USER ROLES
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS roles;
+
+
+    -- USER PROFILES
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS sessions;
 DROP TABLE IF EXISTS user_verification_tokens;
-DROP TABLE IF EXISTS user_avatar;
 DROP TABLE IF EXISTS user_verifications;
 DROP TABLE IF EXISTS user_profile;
+
+    -- CONTACTING
+DROP TABLE IF EXISTS messages;
+
 
 CREATE TABLE IF NOT EXISTS roles (
     id          INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -66,14 +75,6 @@ CREATE TABLE IF NOT EXISTS user_profile (
 );
 
 
-CREATE TABLE IF NOT EXISTS user_avatar (
-    id          VARCHAR(255) UNIQUE NOT NULL,
-    user_id     VARCHAR(255) NOT NULL,
-    avatar_url  VARCHAR(512) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
-
-
 CREATE TABLE IF NOT EXISTS user_roles (
     user_id     VARCHAR(255) NOT NULL,
     role_id     INT NOT NULL DEFAULT 1,
@@ -83,39 +84,63 @@ CREATE TABLE IF NOT EXISTS user_roles (
 );
 
 
-CREATE TABLE IF NOT EXISTS estates (
-    id              VARCHAR(255) UNIQUE NOT NULL,
-    title           VARCHAR(255) NOT NULL,
-    price           DECIMAL(10, 2) NOT NULL,
-    description     VARCHAR(512) NOT NULL,
-    address         VARCHAR(255) NOT NULL,
-    city            VARCHAR(255) NOT NULL,
-    `type`          VARCHAR(20) NOT NULL,
-    size            VARCHAR(20) NOT NULL,
-    bedrooms        INT NOT NULL,
-    bathrooms       INT NOT NULL,
-    created_at      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    author_id       VARCHAR(255) NOT NULL,
-    contact_name    VARCHAR(50) NOT NULL,
-    contact_email   VARCHAR(100) NOT NULL,
-    FOREIGN KEY (author_id) REFERENCES users(id)
-);
+CREATE TABLE IF NOT EXISTS property (
+    id                      VARCHAR(255) UNIQUE NOT NULL,
+    user_profile_id         VARCHAR(255) NOT NULL,
+    property_type           VARCHAR(255) NOT NULL,
+    price                   DECIMAL(15, 2) NOT NULL,
+    living_expenses         DECIMAL(10, 2) NOT NULL,
+    building_type           VARCHAR(255),
+    building_condition      VARCHAR(255),
+    ownership_type          VARCHAR(255),
+    floor                   INT,
+    total_floors            INT,
+    usable_area             DECIMAL(10, 2),
+    land_size               DECIMAL(10, 2),
+    cellar_size             DECIMAL(10, 2),
+    move_in_date            DATE,
+    water_supply            VARCHAR(255),
+    heating_type            VARCHAR(255),
+    sewage_type             VARCHAR(255),
+    electricity_type        VARCHAR(255),
+    energy_efficiency_class VARCHAR(255),
+    energy_certificate      BOOLEAN,
+    partially_furnished     BOOLEAN,
+    has_elevator            BOOLEAN,
+    created_at              TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at              TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_profile_id) REFERENCES user_profile(id) ON DELETE CASCADE
+    );
 
 
-CREATE TABLE IF NOT EXISTS estate_images (
-    id          VARCHAR(255) UNIQUE NOT NULL,
-    estate_id   VARCHAR(255) NOT NULL,
-    image_url   VARCHAR(512) NOT NULL,
-    FOREIGN KEY (estate_id) REFERENCES estates(id) ON DELETE CASCADE
-);
+CREATE TABLE IF NOT EXISTS property_features (
+    id            VARCHAR(255) UNIQUE NOT NULL,
+    property_id   VARCHAR(255) NOT NULL,
+    feature_name  VARCHAR(255),
+    feature_value VARCHAR(255),
+    created_at    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (property_id) REFERENCES property(id) ON DELETE CASCADE
+    );
 
-CREATE TABLE IF NOT EXISTS user_estates (
-    id          VARCHAR(255) UNIQUE NOT NULL,
-    user_id     VARCHAR(255) NOT NULL,
-    estate_id   VARCHAR(255) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (estate_id) REFERENCES estates(id) ON DELETE CASCADE
-);
+
+CREATE TABLE IF NOT EXISTS property_location (
+    id            VARCHAR(255) UNIQUE NOT NULL,
+    property_id   VARCHAR(255) NOT NULL,
+    latitude      DECIMAL(10, 8),
+    longitude     DECIMAL(11, 8),
+    address       VARCHAR(512),
+    created_at    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (property_id) REFERENCES property(id) ON DELETE CASCADE
+    );
+
+CREATE TABLE IF NOT EXISTS property_images (
+    id            VARCHAR(255) UNIQUE NOT NULL,
+    property_id   VARCHAR(255) NOT NULL,
+    image_path    VARCHAR(512) NOT NULL,
+    created_at    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (property_id) REFERENCES property(id) ON DELETE CASCADE
+    );
 
 
 CREATE TABLE IF NOT EXISTS messages (
@@ -131,7 +156,3 @@ CREATE TABLE IF NOT EXISTS messages (
 
 INSERT INTO roles (name) VALUES ('user');
 INSERT INTO roles (name) VALUES ('admin');
-
-
-CREATE INDEX idx_users_email ON users (email);
-CREATE INDEX idx_estates_city ON estates (city);

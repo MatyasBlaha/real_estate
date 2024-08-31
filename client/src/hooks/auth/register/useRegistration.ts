@@ -1,4 +1,4 @@
-import { useNotification } from "../../../context/NotificationContext.tsx";
+import { useNotification } from "../../../context/global/NotificationContext.tsx";
 import { useState } from "react";
 import { Credentials } from '../../../services/auth/register/registerTypes';
 import { handleRegistration } from "../../../services/auth/register/handleRegistration.ts";

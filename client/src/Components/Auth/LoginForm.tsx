@@ -5,6 +5,8 @@ import { FormGroup, FormControl, FormLabel, Button, Row, Col, Container } from '
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link } from "react-router-dom";
 
+import Input from '../../Components/ui/forms/Input.tsx';
+
 
 interface LoginFormData {
     email: string;
@@ -23,21 +25,24 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
                 <Col md={6} lg={4} className="p-4 md-5">
                     <div className="bg-white shadow-sm p-4 p-md-5">
                         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-1 flex-col justify-evenly">
-                            <FormGroup>
-                                <FormLabel>Email address</FormLabel>
-                                <FormControl
-                                    type="email"
-                                    placeholder="Enter email"
-                                    {...register('email', { required: true })}
-                                />
-                                {errors.email && <div style={{ color: 'red' }}>{errors.email.message}</div>}
-                            </FormGroup>
+
+
+                            <Input
+                                type="email"
+                                name="email"
+                                label="Email address"
+                                register={register}
+                                required={true}
+                                placeholder="Enter email"
+                                errors={errors}
+                            ></Input>
 
                             <FormGroup>
                                 <FormLabel>Password</FormLabel>
                                 <FormControl
                                     type="password"
                                     placeholder="Enter password"
+                                    autoComplete='current-password'
                                     {...register('password', { required: true })}
                                 />
                                 {errors.password && <div style={{ color: 'red' }}>{errors.password.message}</div>}

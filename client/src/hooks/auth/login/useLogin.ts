@@ -1,10 +1,10 @@
 // src/hooks/useLogin.ts
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useNotification } from '../../../context/NotificationContext.tsx';
+import { useNotification } from '../../../context/global/NotificationContext.tsx';
 import { handleLogin } from '../../../services/auth/login/handleLogin.ts';
 import {Credentials} from "../../../services/auth/login/loginTypes.ts";
-import { useUserContext } from '../../../context/useUserContext.tsx';
+import { useUserContext } from '../../../context/global/useUserContext.tsx';
 
 export const useLogin = () => {
     const { setUser } = useUserContext();
